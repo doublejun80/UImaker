@@ -1,0 +1,314 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="ko"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>코드 추출 및 스니펫 - PrecisionEdit</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;family=Roboto+Mono&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "secondary-fixed-dim": "#bbd9e9",
+              "primary": "#9ba8ff",
+              "outline-variant": "#46484b",
+              "surface-container-low": "#111417",
+              "inverse-on-surface": "#535559",
+              "on-error": "#490013",
+              "primary-container": "#8999ff",
+              "error": "#ff6e84",
+              "background": "#0c0e11",
+              "surface-container-lowest": "#000000",
+              "surface-variant": "#23262a",
+              "inverse-primary": "#2949ef",
+              "tertiary-dim": "#00d4ec",
+              "on-surface": "#f9f9fd",
+              "primary-fixed-dim": "#778aff",
+              "on-tertiary-fixed-variant": "#005762",
+              "surface-container-highest": "#23262a",
+              "on-primary": "#001c8e",
+              "tertiary-fixed-dim": "#00d4ec",
+              "surface-tint": "#9ba8ff",
+              "surface-bright": "#292c31",
+              "secondary-container": "#2e4b57",
+              "on-error-container": "#ffb2b9",
+              "tertiary": "#81ecff",
+              "primary-fixed": "#8999ff",
+              "on-tertiary-container": "#004d57",
+              "on-surface-variant": "#aaabaf",
+              "on-primary-fixed": "#000000",
+              "surface": "#0c0e11",
+              "secondary": "#c9e7f7",
+              "tertiary-container": "#00e3fd",
+              "on-secondary-fixed": "#264350",
+              "on-background": "#f9f9fd",
+              "error-dim": "#d73357",
+              "primary-dim": "#4963ff",
+              "on-secondary-fixed-variant": "#435f6d",
+              "on-secondary": "#395663",
+              "on-secondary-container": "#b7d5e5",
+              "on-primary-container": "#001470",
+              "surface-container-high": "#1d2024",
+              "secondary-dim": "#bbd9e9",
+              "on-primary-fixed-variant": "#001a88",
+              "surface-container": "#171a1d",
+              "on-tertiary": "#005762",
+              "secondary-fixed": "#c9e7f7",
+              "on-tertiary-fixed": "#003840",
+              "inverse-surface": "#f9f9fd",
+              "outline": "#747579",
+              "error-container": "#a70138",
+              "tertiary-fixed": "#00e3fd",
+              "surface-dim": "#0c0e11"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"],
+              "mono": ["Roboto Mono"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            display: inline-block;
+            line-height: 1;
+        }
+        ::-webkit-scrollbar {
+            width: 8px;
+            height: 8px;
+        }
+        ::-webkit-scrollbar-track {
+            background: #111417;
+        }
+        ::-webkit-scrollbar-thumb {
+            background: #23262a;
+            border-radius: 4px;
+        }
+        ::-webkit-scrollbar-thumb:hover {
+            background: #46484b;
+        }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-primary selection:text-on-primary">
+<!-- TopNavBar Implementation -->
+<nav class="bg-[#0c0e11] dark:bg-[#0c0e11] font-['Manrope'] text-sm tracking-tight docked full-width top-0 z-50 border-b border-[#46484b]/15 flex justify-between items-center w-full px-6 h-14">
+<div class="flex items-center gap-8">
+<span class="text-xl font-bold text-[#f9f9fd] tracking-tighter">PrecisionEdit</span>
+<div class="hidden md:flex gap-6">
+<a class="text-[#aaabaf] hover:text-[#f9f9fd] transition-colors duration-200" href="#">프로젝트</a>
+<a class="text-[#aaabaf] hover:text-[#f9f9fd] transition-colors duration-200" href="#">에셋</a>
+<a class="text-[#aaabaf] hover:text-[#f9f9fd] transition-colors duration-200" href="#">히스토리</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<button class="text-[#aaabaf] hover:text-[#f9f9fd] transition-colors duration-200 scale-95 active:scale-90 transition-transform cubic-bezier(0.16, 1, 0.3, 1)">저장</button>
+<button class="bg-gradient-to-br from-primary to-primary-dim text-on-primary-container px-4 py-1.5 rounded-sm font-semibold text-xs scale-95 active:scale-90 transition-transform cubic-bezier(0.16, 1, 0.3, 1)">내보내기</button>
+<span class="material-symbols-outlined text-[#aaabaf]" data-icon="account_circle">account_circle</span>
+</div>
+</nav>
+<main class="flex h-[calc(100vh-3.5rem)] overflow-hidden">
+<!-- SideNavBar Implementation -->
+<aside class="hidden md:flex flex-col h-full py-4 px-6 bg-[#111417] dark:bg-[#111417] font-['Inter'] text-[0.875rem] docked left-0 h-full w-64 bg-[#171a1d] transition-all duration-200 cubic-bezier(0.16, 1, 0.3, 1)">
+<div class="mb-8">
+<h2 class="text-lg font-bold text-[#f9f9fd]">프로젝트 워크스페이스</h2>
+<p class="text-on-surface-variant text-xs">메인 캔버스</p>
+</div>
+<div class="space-y-1 mb-8">
+<div class="flex items-center gap-3 px-3 py-2 text-[#aaabaf] hover:bg-[#171a1d] hover:text-[#f9f9fd] transition-all duration-200 cubic-bezier(0.16, 1, 0.3, 1)">
+<span class="material-symbols-outlined" data-icon="category">category</span>
+<span>요소</span>
+</div>
+<div class="flex items-center gap-3 px-3 py-2 text-[#aaabaf] hover:bg-[#171a1d] hover:text-[#f9f9fd] transition-all duration-200 cubic-bezier(0.16, 1, 0.3, 1)">
+<span class="material-symbols-outlined" data-icon="layers">layers</span>
+<span>레이어</span>
+</div>
+<div class="flex items-center gap-3 px-3 py-2 text-[#aaabaf] hover:bg-[#171a1d] hover:text-[#f9f9fd] transition-all duration-200 cubic-bezier(0.16, 1, 0.3, 1)">
+<span class="material-symbols-outlined" data-icon="widgets">widgets</span>
+<span>컴포넌트</span>
+</div>
+<div class="flex items-center gap-3 px-3 py-2 text-[#aaabaf] hover:bg-[#171a1d] hover:text-[#f9f9fd] transition-all duration-200 cubic-bezier(0.16, 1, 0.3, 1)">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>설정</span>
+</div>
+</div>
+<button class="bg-surface-container-highest border border-outline-variant/15 text-on-surface py-2 rounded-sm mb-auto flex items-center justify-center gap-2 hover:bg-surface-bright transition-colors">
+<span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+                요소 추가
+            </button>
+<div class="pt-4 border-t border-outline-variant/10 space-y-1">
+<div class="flex items-center gap-3 px-3 py-2 text-[#aaabaf] hover:bg-[#171a1d] hover:text-[#f9f9fd] transition-all duration-200 cubic-bezier(0.16, 1, 0.3, 1)">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span>도움말</span>
+</div>
+<div class="flex items-center gap-3 px-3 py-2 text-[#aaabaf] hover:bg-[#171a1d] hover:text-[#f9f9fd] transition-all duration-200 cubic-bezier(0.16, 1, 0.3, 1)">
+<span class="material-symbols-outlined" data-icon="chat_bubble">chat_bubble</span>
+<span>피드백</span>
+</div>
+</div>
+</aside>
+<!-- Main Content Area: Export Overlay -->
+<section class="flex-1 bg-surface-container-lowest relative flex items-center justify-center p-4 md:p-12">
+<!-- Glassmorphic Overlay Background -->
+<div class="absolute inset-0 bg-background/40 backdrop-blur-sm z-0"></div>
+<!-- Export Modal -->
+<div class="relative z-10 w-full max-w-6xl bg-surface-container-low rounded-xl overflow-hidden flex flex-col md:flex-row h-full max-h-[870px] border border-outline-variant/10 shadow-[0px_16px_48px_rgba(0,0,0,0.5)]">
+<!-- Code Sidebar (Configuration) -->
+<div class="w-full md:w-80 bg-surface-container border-r border-outline-variant/10 p-6 flex flex-col gap-6 overflow-y-auto">
+<div>
+<h3 class="font-headline font-bold text-lg mb-4 text-on-surface">설정</h3>
+<div class="space-y-4">
+<!-- Toggle/Option 1 -->
+<div class="flex items-center justify-between">
+<span class="text-on-surface-variant text-sm">출력 최소화 (Minify)</span>
+<div class="w-10 h-5 bg-surface-container-highest rounded-full relative p-1 cursor-pointer">
+<div class="w-3 h-3 bg-primary rounded-full translate-x-5"></div>
+</div>
+</div>
+<!-- Toggle/Option 2 -->
+<div class="flex items-center justify-between">
+<span class="text-on-surface-variant text-sm">변수 포함</span>
+<div class="w-10 h-5 bg-surface-container-highest rounded-full relative p-1 cursor-pointer">
+<div class="w-3 h-3 bg-outline rounded-full"></div>
+</div>
+</div>
+<!-- Select Menu -->
+<div class="flex flex-col gap-1.5">
+<label class="text-on-surface-variant text-xs font-semibold uppercase tracking-wider">Tailwind 접두사</label>
+<div class="bg-surface-container-low border border-outline-variant/15 px-3 py-2 rounded-sm text-on-surface text-sm flex justify-between items-center cursor-pointer">
+<span class="font-mono">tw-</span>
+<span class="material-symbols-outlined text-xs" data-icon="expand_more">expand_more</span>
+</div>
+</div>
+</div>
+</div>
+<!-- DB Structure Integration Info -->
+<div class="bg-surface-container-lowest p-4 rounded-lg border border-outline-variant/10">
+<div class="flex items-center gap-2 mb-2">
+<span class="material-symbols-outlined text-primary text-sm" data-icon="database">database</span>
+<span class="text-xs font-mono font-bold text-on-surface">CSS_STYLES 테이블</span>
+</div>
+<ul class="text-[10px] font-mono text-on-surface-variant space-y-1">
+<li><span class="text-tertiary">uuid</span>: component_id</li>
+<li><span class="text-tertiary">jsonb</span>: styles_payload</li>
+<li><span class="text-tertiary">text</span>: tailwind_blob</li>
+</ul>
+</div>
+<div class="mt-auto space-y-3">
+<button class="w-full bg-surface-container-highest hover:bg-surface-bright text-on-surface py-2.5 rounded-sm text-sm font-semibold transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="download">download</span>
+                            파일 다운로드
+                        </button>
+<button class="w-full bg-surface-container-highest hover:bg-surface-bright text-on-surface py-2.5 rounded-sm text-sm font-semibold transition-colors flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm" data-icon="open_in_new">open_in_new</span>
+                            CodeSandbox에서 열기
+                        </button>
+</div>
+</div>
+<!-- Main Code Editor Area -->
+<div class="flex-1 flex flex-col min-w-0">
+<!-- Tabs Header -->
+<div class="bg-surface-container border-b border-outline-variant/10 px-6 flex items-center gap-8 h-14 overflow-x-auto no-scrollbar">
+<button class="text-[#f9f9fd] border-b-2 border-[#9ba8ff] h-full flex items-center px-1 font-semibold text-sm transition-colors whitespace-nowrap">React/Tailwind</button>
+<button class="text-[#aaabaf] hover:text-[#f9f9fd] h-full flex items-center px-1 font-semibold text-sm transition-colors whitespace-nowrap">HTML</button>
+<button class="text-[#aaabaf] hover:text-[#f9f9fd] h-full flex items-center px-1 font-semibold text-sm transition-colors whitespace-nowrap">CSS</button>
+<button class="text-[#aaabaf] hover:text-[#f9f9fd] h-full flex items-center px-1 font-semibold text-sm transition-colors whitespace-nowrap">Styled Components</button>
+<div class="ml-auto flex items-center gap-4">
+<button class="flex items-center gap-2 bg-gradient-to-br from-primary to-primary-dim text-on-primary-container px-4 py-1.5 rounded-sm font-bold text-xs shadow-lg shadow-primary/10 whitespace-nowrap">
+<span class="material-symbols-outlined text-xs" data-icon="content_copy">content_copy</span>
+                                클립보드에 복사
+                            </button>
+</div>
+</div>
+<!-- Code Canvas (Monokai-ish) -->
+<div class="flex-1 bg-[#0c0e11] overflow-auto p-8 font-mono text-sm leading-relaxed relative">
+<!-- Line Numbers -->
+<div class="absolute left-0 top-0 bottom-0 w-10 bg-surface-container-low/30 border-r border-outline-variant/5 text-outline text-right pr-3 py-8 select-none">
+                            1<br/>2<br/>3<br/>4<br/>5<br/>6<br/>7<br/>8<br/>9<br/>10<br/>11<br/>12<br/>13<br/>14<br/>15<br/>16<br/>17<br/>18<br/>19<br/>20
+                        </div>
+<!-- Syntax Content -->
+<div class="pl-8">
+<div class="flex flex-wrap gap-x-2">
+<span class="text-[#ff79c6]">import</span>
+<span class="text-on-surface">React</span>
+<span class="text-[#ff79c6]">from</span>
+<span class="text-[#f1fa8c]">'react'</span><span class="text-on-surface">;</span>
+</div>
+<div class="mt-2 flex flex-wrap gap-x-2">
+<span class="text-[#ff79c6]">const</span>
+<span class="text-[#50fa7b]">PrecisionButton</span>
+<span class="text-[#ff79c6]">=</span>
+<span class="text-on-surface">({ children }) =&gt; {</span>
+</div>
+<div class="pl-6 mt-1 flex flex-wrap gap-x-2">
+<span class="text-[#ff79c6]">return</span>
+<span class="text-on-surface">(</span>
+</div>
+<div class="pl-12 mt-1 flex flex-wrap gap-x-2">
+<span class="text-primary">&lt;button</span>
+</div>
+<div class="pl-16 mt-0.5 flex flex-wrap gap-x-2">
+<span class="text-[#8be9fd]">className</span><span class="text-[#ff79c6]">=</span><span class="text-[#f1fa8c]">"bg-primary-container hover:bg-primary text-on-primary px-6 py-2 rounded-sm font-bold transition-all cubic-bezier(0.16, 1, 0.3, 1) shadow-xl"</span>
+</div>
+<div class="pl-12 mt-0.5 flex flex-wrap gap-x-2">
+<span class="text-primary">&gt;</span>
+</div>
+<div class="pl-16 mt-0.5 flex flex-wrap gap-x-2">
+<span class="text-on-surface">{children}</span>
+</div>
+<div class="pl-12 mt-0.5 flex flex-wrap gap-x-2">
+<span class="text-primary">&lt;/button&gt;</span>
+</div>
+<div class="pl-6 mt-1 flex flex-wrap gap-x-2">
+<span class="text-on-surface">);</span>
+</div>
+<div class="mt-1 flex flex-wrap gap-x-2">
+<span class="text-on-surface">};</span>
+</div>
+<div class="mt-6 flex flex-wrap gap-x-2">
+<span class="text-[#6272a4]">// CSS_STYLES 스키마 데이터베이스와 통합</span>
+</div>
+<div class="flex flex-wrap gap-x-2">
+<span class="text-[#ff79c6]">export default</span>
+<span class="text-[#50fa7b]">PrecisionButton</span><span class="text-on-surface">;</span>
+</div>
+</div>
+</div>
+<!-- Footer / Status -->
+<div class="h-8 bg-surface-container border-t border-outline-variant/10 px-6 flex items-center justify-between">
+<div class="flex gap-4">
+<span class="text-[10px] font-mono text-outline uppercase tracking-widest">utf-8</span>
+<span class="text-[10px] font-mono text-outline uppercase tracking-widest">react (typescript)</span>
+</div>
+<div class="flex items-center gap-1.5">
+<div class="w-1.5 h-1.5 bg-[#50fa7b] rounded-full"></div>
+<span class="text-[10px] font-mono text-outline uppercase tracking-widest">내보내기 준비 완료</span>
+</div>
+</div>
+</div>
+</div>
+</section>
+</main>
+<!-- Canvas Zoom Controller - Floating glass bar -->
+<div class="fixed bottom-6 left-1/2 -translate-x-1/2 h-10 bg-surface-bright/60 backdrop-blur-md rounded-full px-4 flex items-center gap-4 border border-outline-variant/10 z-50">
+<button class="text-on-surface-variant hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="zoom_out">zoom_out</span>
+</button>
+<span class="font-mono text-xs font-bold text-on-surface w-10 text-center">85%</span>
+<button class="text-on-surface-variant hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="zoom_in">zoom_in</span>
+</button>
+<div class="w-[1px] h-4 bg-outline-variant/30"></div>
+<button class="text-on-surface-variant hover:text-on-surface transition-colors">
+<span class="material-symbols-outlined text-lg" data-icon="fit_screen">fit_screen</span>
+</button>
+</div>
+</body></html>

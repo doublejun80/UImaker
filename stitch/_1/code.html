@@ -1,0 +1,356 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="ko"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>비주얼 에디터 - 상세 모드</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;family=Roboto+Mono&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "secondary-fixed-dim": "#bbd9e9",
+                        "primary": "#9ba8ff",
+                        "outline-variant": "#46484b",
+                        "surface-container-low": "#111417",
+                        "inverse-on-surface": "#535559",
+                        "on-error": "#490013",
+                        "primary-container": "#8999ff",
+                        "error": "#ff6e84",
+                        "background": "#0c0e11",
+                        "surface-container-lowest": "#000000",
+                        "surface-variant": "#23262a",
+                        "inverse-primary": "#2949ef",
+                        "tertiary-dim": "#00d4ec",
+                        "on-surface": "#f9f9fd",
+                        "primary-fixed-dim": "#778aff",
+                        "on-tertiary-fixed-variant": "#005762",
+                        "surface-container-highest": "#23262a",
+                        "on-primary": "#001c8e",
+                        "tertiary-fixed-dim": "#00d4ec",
+                        "surface-tint": "#9ba8ff",
+                        "surface-bright": "#292c31",
+                        "secondary-container": "#2e4b57",
+                        "on-error-container": "#ffb2b9",
+                        "tertiary": "#81ecff",
+                        "primary-fixed": "#8999ff",
+                        "on-tertiary-container": "#004d57",
+                        "on-surface-variant": "#aaabaf",
+                        "on-primary-fixed": "#000000",
+                        "surface": "#0c0e11",
+                        "secondary": "#c9e7f7",
+                        "tertiary-container": "#00e3fd",
+                        "on-secondary-fixed": "#264350",
+                        "on-background": "#f9f9fd",
+                        "error-dim": "#d73357",
+                        "primary-dim": "#4963ff",
+                        "on-secondary-fixed-variant": "#435f6d",
+                        "on-secondary": "#395663",
+                        "on-secondary-container": "#b7d5e5",
+                        "on-primary-container": "#001470",
+                        "surface-container-high": "#1d2024",
+                        "secondary-dim": "#bbd9e9",
+                        "on-primary-fixed-variant": "#001a88",
+                        "surface-container": "#171a1d",
+                        "on-tertiary": "#005762",
+                        "secondary-fixed": "#c9e7f7",
+                        "on-tertiary-fixed": "#003840",
+                        "inverse-surface": "#f9f9fd",
+                        "outline": "#747579",
+                        "error-container": "#a70138",
+                        "tertiary-fixed": "#00e3fd",
+                        "surface-dim": "#0c0e11"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"],
+                        "mono": ["Roboto Mono"]
+                    },
+                    borderRadius: { "DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem" },
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+        }
+        .custom-scrollbar::-webkit-scrollbar { width: 4px; }
+        .custom-scrollbar::-webkit-scrollbar-track { background: transparent; }
+        .custom-scrollbar::-webkit-scrollbar-thumb { background: #46484b; border-radius: 10px; }
+        .glass-panel { backdrop-filter: blur(12px); }
+        .tooltip { visibility: hidden; position: absolute; bottom: -35px; left: 50%; transform: translateX(-50%); background: #23262a; color: #f9f9fd; padding: 4px 8px; border-radius: 4px; font-size: 11px; white-space: nowrap; border: 1px solid rgba(155, 168, 255, 0.2); z-index: 100; opacity: 0; transition: opacity 0.2s ease; }
+        .group:hover .tooltip { visibility: visible; opacity: 1; }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body overflow-hidden h-screen flex flex-col">
+<!-- TopNavBar -->
+<nav class="bg-[#0c0e11] dark:bg-[#0c0e11] font-['Manrope'] text-sm tracking-tight border-b border-[#46484b]/15 flex justify-between items-center w-full px-6 h-14 docked full-width top-0 z-50">
+<div class="flex items-center gap-8">
+<span class="text-xl font-bold text-[#f9f9fd] tracking-tighter">PrecisionEdit</span>
+<div class="hidden md:flex gap-6">
+<a class="text-[#f9f9fd] border-b-2 border-[#9ba8ff] pb-1 hover:text-[#f9f9fd] transition-colors duration-200" href="#">프로젝트</a>
+<a class="text-[#aaabaf] hover:text-[#f9f9fd] transition-colors duration-200" href="#">에셋</a>
+<a class="text-[#aaabaf] hover:text-[#f9f9fd] transition-colors duration-200" href="#">히스토리</a>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<div class="flex items-center bg-[#171a1d] rounded p-0.5 border border-outline-variant/20">
+<button class="p-1.5 rounded-sm bg-surface-variant text-primary" title="다크 모드"><span class="material-symbols-outlined text-[18px]">dark_mode</span></button>
+<button class="p-1.5 rounded-sm text-on-surface-variant hover:text-on-surface" title="라이트 모드"><span class="material-symbols-outlined text-[18px]">light_mode</span></button>
+<button class="p-1.5 rounded-sm text-on-surface-variant hover:text-on-surface" title="커스텀 모드"><span class="material-symbols-outlined text-[18px]">palette</span></button>
+</div>
+<div class="h-6 w-px bg-outline-variant/30"></div>
+<div class="relative group">
+<button class="text-[#aaabaf] px-4 py-1.5 hover:text-[#f9f9fd] transition-colors duration-200 scale-95 active:scale-90 transition-transform">저장</button>
+<span class="tooltip">현재 변경사항 저장</span>
+</div>
+<div class="relative group">
+<button class="bg-gradient-to-br from-primary to-primary-dim text-on-primary-container px-4 py-1.5 font-semibold rounded-[0.125rem] scale-95 active:scale-90 transition-transform">내보내기</button>
+<span class="tooltip">코드로 내보내기</span>
+</div>
+<span class="material-symbols-outlined text-[#aaabaf] cursor-pointer">account_circle</span>
+</div>
+</nav>
+<div class="flex flex-1 overflow-hidden">
+<!-- Left Sidebar: Element Tree -->
+<aside class="bg-[#111417] dark:bg-[#111417] font-['Inter'] text-[0.875rem] border-r border-[#46484b]/15 w-64 flex flex-col h-full py-4 pl-6 pr-4 flex-shrink-0">
+<div class="mb-6">
+<h3 class="text-on-surface-variant font-semibold uppercase tracking-widest text-[10px] mb-4">레이어 요소</h3>
+<div class="space-y-1">
+<div class="flex items-center gap-3 px-3 py-2 bg-[#23262a] text-[#f9f9fd] font-semibold rounded-md cursor-pointer transition-all">
+<span class="material-symbols-outlined text-sm">category</span>
+<span>기본 버튼</span>
+</div>
+<div class="flex items-center gap-3 px-3 py-2 text-[#aaabaf] hover:bg-[#171a1d] hover:text-[#f9f9fd] transition-all cursor-pointer">
+<span class="material-symbols-outlined text-sm">layers</span>
+<span>히어로 카드</span>
+</div>
+<div class="flex items-center gap-3 px-3 py-2 text-[#aaabaf] hover:bg-[#171a1d] hover:text-[#f9f9fd] transition-all cursor-pointer">
+<span class="material-symbols-outlined text-sm">widgets</span>
+<span>입력 그룹</span>
+</div>
+</div>
+</div>
+<div class="mt-auto">
+<div class="relative group">
+<button class="w-full flex items-center justify-center gap-2 bg-[#23262a] text-primary border border-primary/20 py-2 rounded-[0.125rem] mb-4 hover:bg-primary/10 transition-colors">
+<span class="material-symbols-outlined text-sm">add</span>
+<span>요소 추가</span>
+</button>
+<span class="tooltip">새 레이어 추가</span>
+</div>
+<div class="flex flex-col gap-1">
+<div class="flex items-center gap-3 px-3 py-2 text-[#aaabaf] hover:text-[#f9f9fd] cursor-pointer">
+<span class="material-symbols-outlined text-sm">help</span>
+<span>도움말</span>
+</div>
+<div class="flex items-center gap-3 px-3 py-2 text-[#aaabaf] hover:text-[#f9f9fd] cursor-pointer">
+<span class="material-symbols-outlined text-sm">chat_bubble</span>
+<span>피드백</span>
+</div>
+</div>
+</div>
+</aside>
+<!-- Main Canvas Area -->
+<main class="flex-1 bg-surface-container-lowest relative flex flex-col items-center justify-center p-12 overflow-hidden">
+<!-- Responsive Preview Toolbar -->
+<div class="absolute top-6 left-1/2 -translate-x-1/2 bg-surface-container-high/80 glass-panel px-3 py-1.5 rounded-lg border border-outline-variant/20 flex items-center gap-4 shadow-xl z-20">
+<button class="flex items-center gap-2 px-3 py-1 rounded bg-primary/20 text-primary transition-all">
+<span class="material-symbols-outlined text-lg">desktop_windows</span>
+<span class="text-[10px] font-bold uppercase">데스크탑</span>
+</button>
+<button class="flex items-center gap-2 px-3 py-1 rounded text-on-surface-variant hover:bg-surface-variant transition-all">
+<span class="material-symbols-outlined text-lg">tablet_mac</span>
+<span class="text-[10px] font-bold uppercase">태블릿</span>
+</button>
+<button class="flex items-center gap-2 px-3 py-1 rounded text-on-surface-variant hover:bg-surface-variant transition-all">
+<span class="material-symbols-outlined text-lg">smartphone</span>
+<span class="text-[10px] font-bold uppercase">모바일</span>
+</button>
+</div>
+<!-- Canvas Grid Overlay -->
+<div class="absolute inset-0 opacity-[0.03] pointer-events-none" style="background-image: radial-gradient(#9ba8ff 1px, transparent 1px); background-size: 24px 24px;"></div>
+<!-- Selection Indicator -->
+<div class="relative group">
+<div class="absolute -inset-4 border border-primary/30 rounded-lg pointer-events-none opacity-50"></div>
+<div class="absolute -top-10 left-0 bg-primary text-on-primary-fixed px-2 py-0.5 text-[10px] font-bold rounded-sm uppercase tracking-wider">button.primary-btn</div>
+<!-- The Primary Button (Selected Element) -->
+<button class="relative bg-gradient-to-br from-primary to-primary-dim text-on-primary-container px-8 py-4 font-bold text-lg rounded-[0.125rem] shadow-[0px_16px_48px_rgba(155,168,255,0.2)] hover:scale-105 transition-transform duration-300">
+                시작하기
+            </button>
+</div>
+<!-- Canvas Controls -->
+<div class="absolute bottom-8 left-1/2 -translate-x-1/2 bg-surface-bright/60 glass-panel px-4 py-2 rounded-full border border-outline-variant/15 flex items-center gap-6 shadow-2xl">
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-on-surface">zoom_out</span>
+<span class="text-xs font-mono w-10 text-center">100%</span>
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-on-surface">zoom_in</span>
+</div>
+<div class="h-4 w-px bg-outline-variant/30"></div>
+<div class="flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant cursor-pointer hover:text-on-surface">fit_screen</span>
+<span class="material-symbols-outlined text-primary cursor-pointer">grid_4x4</span>
+</div>
+</div>
+</main>
+<!-- Right Panel: Properties (Detailed Mode) -->
+<aside class="w-80 bg-surface-container-low border-l border-outline-variant/15 flex flex-col h-full flex-shrink-0">
+<div class="h-12 border-b border-outline-variant/15 flex items-center px-4 justify-between">
+<span class="text-xs font-bold uppercase tracking-widest text-on-surface-variant">상세 속성 설정</span>
+<span class="material-symbols-outlined text-sm text-on-surface-variant cursor-pointer">settings</span>
+</div>
+<div class="flex-1 overflow-y-auto custom-scrollbar p-4 space-y-6 pb-20">
+<!-- Typography Section -->
+<section>
+<div class="flex items-center gap-2 mb-3">
+<span class="material-symbols-outlined text-sm text-primary">text_fields</span>
+<h4 class="text-[11px] font-bold text-on-surface uppercase tracking-tight">타이포그래피</h4>
+</div>
+<div class="grid grid-cols-2 gap-3 mb-3">
+<div class="space-y-1">
+<label class="text-[9px] text-on-surface-variant uppercase">글꼴 크기</label>
+<input class="w-full bg-surface-container border-none text-[11px] font-mono text-primary rounded px-2 py-1.5 focus:ring-1 focus:ring-primary/50" type="text" value="18px"/>
+</div>
+<div class="space-y-1">
+<label class="text-[9px] text-on-surface-variant uppercase">글자 굵기</label>
+<select class="w-full bg-surface-container border-none text-[11px] text-primary rounded px-2 py-1.5 focus:ring-1 focus:ring-primary/50 appearance-none">
+<option>Bold (700)</option>
+<option>Medium (500)</option>
+</select>
+</div>
+</div>
+<div class="space-y-1">
+<label class="text-[9px] text-on-surface-variant uppercase">행간 (Line Height)</label>
+<input class="w-full bg-surface-container border-none text-[11px] font-mono text-primary rounded px-2 py-1.5 focus:ring-1 focus:ring-primary/50" type="text" value="1.2"/>
+</div>
+</section>
+<!-- Layout Section -->
+<section>
+<div class="flex items-center gap-2 mb-3">
+<span class="material-symbols-outlined text-sm text-primary">grid_view</span>
+<h4 class="text-[11px] font-bold text-on-surface uppercase tracking-tight">레이아웃</h4>
+</div>
+<div class="grid grid-cols-2 gap-3 mb-3">
+<div class="space-y-1">
+<label class="text-[9px] text-on-surface-variant uppercase">너비 (Width)</label>
+<input class="w-full bg-surface-container border-none text-[11px] font-mono text-primary rounded px-2 py-1.5" type="text" value="Auto"/>
+</div>
+<div class="space-y-1">
+<label class="text-[9px] text-on-surface-variant uppercase">높이 (Height)</label>
+<input class="w-full bg-surface-container border-none text-[11px] font-mono text-primary rounded px-2 py-1.5" type="text" value="Auto"/>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-3 mb-3">
+<div class="space-y-1">
+<label class="text-[9px] text-on-surface-variant uppercase">안쪽 여백 (P)</label>
+<input class="w-full bg-surface-container border-none text-[11px] font-mono text-primary rounded px-2 py-1.5" type="text" value="16px 32px"/>
+</div>
+<div class="space-y-1">
+<label class="text-[9px] text-on-surface-variant uppercase">바깥 여백 (M)</label>
+<input class="w-full bg-surface-container border-none text-[11px] font-mono text-primary rounded px-2 py-1.5" type="text" value="0px"/>
+</div>
+</div>
+</section>
+<!-- Background Section -->
+<section>
+<div class="flex items-center gap-2 mb-3">
+<span class="material-symbols-outlined text-sm text-primary">format_color_fill</span>
+<h4 class="text-[11px] font-bold text-on-surface uppercase tracking-tight">배경</h4>
+</div>
+<div class="space-y-3">
+<div class="flex gap-2 p-1 bg-surface-container rounded-sm">
+<button class="flex-1 py-1 text-[10px] font-bold rounded-sm bg-surface-variant text-on-surface">단색</button>
+<button class="flex-1 py-1 text-[10px] font-bold rounded-sm text-on-surface-variant">그라데이션</button>
+</div>
+<div class="flex items-center gap-3">
+<div class="w-10 h-10 rounded bg-gradient-to-br from-primary to-primary-dim border border-white/10 shrink-0"></div>
+<div class="flex-1 space-y-1">
+<label class="text-[9px] text-on-surface-variant uppercase">색상 코드</label>
+<input class="w-full bg-surface-container border-none text-[11px] font-mono text-primary rounded px-2 py-1" type="text" value="#9BA8FF"/>
+</div>
+</div>
+</div>
+</section>
+<!-- Border Section -->
+<section>
+<div class="flex items-center gap-2 mb-3">
+<span class="material-symbols-outlined text-sm text-primary">border_style</span>
+<h4 class="text-[11px] font-bold text-on-surface uppercase tracking-tight">테두리</h4>
+</div>
+<div class="grid grid-cols-2 gap-3 mb-3">
+<div class="space-y-1">
+<label class="text-[9px] text-on-surface-variant uppercase">스타일</label>
+<select class="w-full bg-surface-container border-none text-[11px] text-primary rounded px-2 py-1.5">
+<option>Solid</option>
+<option>Dashed</option>
+</select>
+</div>
+<div class="space-y-1">
+<label class="text-[9px] text-on-surface-variant uppercase">두께</label>
+<input class="w-full bg-surface-container border-none text-[11px] font-mono text-primary rounded px-2 py-1.5" type="text" value="0px"/>
+</div>
+</div>
+<div class="space-y-1">
+<label class="text-[9px] text-on-surface-variant uppercase flex justify-between">
+<span>굴곡 (Radius)</span>
+<span class="font-mono text-primary text-[10px]">2px</span>
+</label>
+<input class="w-full h-1 bg-surface-container-highest rounded-lg appearance-none cursor-pointer accent-primary" max="100" min="0" type="range" value="2"/>
+</div>
+</section>
+<!-- Effects Section -->
+<section>
+<div class="flex items-center gap-2 mb-3">
+<span class="material-symbols-outlined text-sm text-primary">auto_fix_high</span>
+<h4 class="text-[11px] font-bold text-on-surface uppercase tracking-tight">효과 (그림자)</h4>
+</div>
+<div class="bg-surface-container rounded-md p-3 space-y-3">
+<div class="grid grid-cols-2 gap-3">
+<div class="space-y-1">
+<label class="text-[9px] text-on-surface-variant uppercase">X 오프셋</label>
+<input class="w-full bg-surface-container-highest border-none text-[10px] font-mono text-on-surface rounded px-2 py-1" type="text" value="0px"/>
+</div>
+<div class="space-y-1">
+<label class="text-[9px] text-on-surface-variant uppercase">Y 오프셋</label>
+<input class="w-full bg-surface-container-highest border-none text-[10px] font-mono text-on-surface rounded px-2 py-1" type="text" value="16px"/>
+</div>
+</div>
+<div class="grid grid-cols-2 gap-3">
+<div class="space-y-1">
+<label class="text-[9px] text-on-surface-variant uppercase">흐림 (Blur)</label>
+<input class="w-full bg-surface-container-highest border-none text-[10px] font-mono text-on-surface rounded px-2 py-1" type="text" value="48px"/>
+</div>
+<div class="space-y-1">
+<label class="text-[9px] text-on-surface-variant uppercase">확산 (Spread)</label>
+<input class="w-full bg-surface-container-highest border-none text-[10px] font-mono text-on-surface rounded px-2 py-1" type="text" value="0px"/>
+</div>
+</div>
+</div>
+</section>
+</div>
+</aside>
+</div>
+<!-- Bottom Code Snippet Bar -->
+<footer class="h-10 bg-surface-container-high border-t border-outline-variant/15 flex items-center justify-between px-6 z-50">
+<div class="flex items-center gap-4">
+<div class="flex items-center gap-2 cursor-pointer">
+<span class="material-symbols-outlined text-sm text-on-surface-variant">keyboard_arrow_up</span>
+<span class="text-[10px] font-bold uppercase tracking-wider text-on-surface">CSS 인스펙터</span>
+</div>
+<div class="h-3 w-px bg-outline-variant/30"></div>
+<div class="flex items-center gap-3">
+<span class="text-[10px] font-mono text-primary">.primary-btn { ... }</span>
+</div>
+</div>
+<div class="flex items-center gap-4">
+<span class="text-[10px] text-on-surface-variant font-mono">React / Tailwind CSS</span>
+<span class="material-symbols-outlined text-sm text-on-surface-variant cursor-pointer hover:text-on-surface" title="코드 복사">content_copy</span>
+</div>
+</footer>
+</body></html>

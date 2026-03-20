@@ -1,0 +1,32 @@
+{
+  "compilerOptions": {
+    "target": "ES2022",
+    "lib": [
+      "ES2022",
+      "DOM",
+      "DOM.Iterable"
+    ],
+    "allowJs": false,
+    "skipLibCheck": true,
+    "strict": true,
+    "noUncheckedIndexedAccess": true,
+    "exactOptionalPropertyTypes": true,
+    "esModuleInterop": true,
+    "moduleResolution": "Bundler",
+    "resolveJsonModule": true,
+    "isolatedModules": true,
+    "module": "ESNext",
+    "baseUrl": ".",
+    "paths": {
+      "@uiverse/schema": [
+        "packages/schema/src/index.ts"
+      ],
+      "@uiverse/exporter": [
+        "packages/exporter/src/index.ts"
+      ],
+      "@uiverse/cli": [
+        "packages/cli/src/index.ts"
+      ]
+    }
+  }
+}

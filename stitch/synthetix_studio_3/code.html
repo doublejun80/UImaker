@@ -1,0 +1,438 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="ko"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<title>프로젝트 대시보드 | Synthetix Studio</title>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;600;700;800&amp;family=Inter:wght@400;500;600&amp;family=Roboto+Mono&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+      tailwind.config = {
+        darkMode: "class",
+        theme: {
+          extend: {
+            colors: {
+              "secondary-fixed-dim": "#bbd9e9",
+              "primary": "#9ba8ff",
+              "outline-variant": "#46484b",
+              "surface-container-low": "#111417",
+              "inverse-on-surface": "#535559",
+              "on-error": "#490013",
+              "primary-container": "#8999ff",
+              "error": "#ff6e84",
+              "background": "#0c0e11",
+              "surface-container-lowest": "#000000",
+              "surface-variant": "#23262a",
+              "inverse-primary": "#2949ef",
+              "tertiary-dim": "#00d4ec",
+              "on-surface": "#f9f9fd",
+              "primary-fixed-dim": "#778aff",
+              "on-tertiary-fixed-variant": "#005762",
+              "surface-container-highest": "#23262a",
+              "on-primary": "#001c8e",
+              "tertiary-fixed-dim": "#00d4ec",
+              "surface-tint": "#9ba8ff",
+              "surface-bright": "#292c31",
+              "secondary-container": "#2e4b57",
+              "on-error-container": "#ffb2b9",
+              "tertiary": "#81ecff",
+              "primary-fixed": "#8999ff",
+              "on-tertiary-container": "#004d57",
+              "on-surface-variant": "#aaabaf",
+              "on-primary-fixed": "#000000",
+              "surface": "#0c0e11",
+              "secondary": "#c9e7f7",
+              "tertiary-container": "#00e3fd",
+              "on-secondary-fixed": "#264350",
+              "on-background": "#f9f9fd",
+              "error-dim": "#d73357",
+              "primary-dim": "#4963ff",
+              "on-secondary-fixed-variant": "#435f6d",
+              "on-secondary": "#395663",
+              "on-secondary-container": "#b7d5e5",
+              "on-primary-container": "#001470",
+              "surface-container-high": "#1d2024",
+              "secondary-dim": "#bbd9e9",
+              "on-primary-fixed-variant": "#001a88",
+              "surface-container": "#171a1d",
+              "on-tertiary": "#005762",
+              "secondary-fixed": "#c9e7f7",
+              "on-tertiary-fixed": "#003840",
+              "inverse-surface": "#f9f9fd",
+              "outline": "#747579",
+              "error-container": "#a70138",
+              "tertiary-fixed": "#00e3fd",
+              "surface-dim": "#0c0e11"
+            },
+            fontFamily: {
+              "headline": ["Manrope"],
+              "body": ["Inter"],
+              "label": ["Inter"],
+              "mono": ["Roboto Mono"]
+            },
+            borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+          },
+        },
+      }
+    </script>
+<style>
+      .material-symbols-outlined {
+        font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+      }
+      .glass-panel {
+        background: rgba(41, 44, 49, 0.8);
+        backdrop-filter: blur(20px);
+      }
+      .primary-gradient {
+        background: linear-gradient(135deg, #9ba8ff 0%, #4963ff 100%);
+      }
+      .custom-scrollbar::-webkit-scrollbar {
+        width: 4px;
+      }
+      .custom-scrollbar::-webkit-scrollbar-track {
+        background: transparent;
+      }
+      .custom-scrollbar::-webkit-scrollbar-thumb {
+        background: #46484b;
+        border-radius: 10px;
+      }
+      .tooltip-container {
+        position: relative;
+      }
+      .tooltip-text {
+        visibility: hidden;
+        position: absolute;
+        z-index: 100;
+        bottom: 125%;
+        left: 50%;
+        transform: translateX(-50%);
+        background-color: #23262a;
+        color: #f9f9fd;
+        text-align: center;
+        padding: 4px 8px;
+        border-radius: 4px;
+        font-size: 11px;
+        white-space: nowrap;
+        opacity: 0;
+        transition: opacity 0.2s;
+        pointer-events: none;
+        border: 1px solid rgba(155, 168, 255, 0.2);
+      }
+      .tooltip-container:hover .tooltip-text {
+        visibility: visible;
+        opacity: 1;
+      }
+    </style>
+</head>
+<body class="bg-background text-on-surface font-body selection:bg-primary selection:text-on-primary-container">
+<div class="flex h-screen overflow-hidden">
+<!-- SideNavBar -->
+<aside class="hidden md:flex flex-col h-full py-4 px-6 bg-[#111417] border-r border-outline-variant/10 w-64 shrink-0 font-['Inter'] text-[0.875rem]">
+<div class="mb-10">
+<div class="flex items-center gap-3 mb-8">
+<div class="w-8 h-8 rounded-sm bg-primary flex items-center justify-center text-on-primary-container font-bold">S</div>
+<span class="text-lg font-bold text-[#f9f9fd]">Synthetix Studio</span>
+</div>
+<nav class="space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 bg-[#23262a] text-[#f9f9fd] font-semibold rounded-md transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="category">category</span>
+<span>요소 (Elements)</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-[#aaabaf] hover:bg-[#171a1d] hover:text-[#f9f9fd] transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="layers">layers</span>
+<span>레이어 (Layers)</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-[#aaabaf] hover:bg-[#171a1d] hover:text-[#f9f9fd] transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="widgets">widgets</span>
+<span>컴포넌트 (Components)</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-[#aaabaf] hover:bg-[#171a1d] hover:text-[#f9f9fd] transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="settings">settings</span>
+<span>설정</span>
+</a>
+</nav>
+</div>
+<div class="mt-auto pt-6 border-t border-outline-variant/10">
+<button class="tooltip-container w-full primary-gradient text-on-primary-container font-semibold py-2.5 px-4 rounded-sm flex items-center justify-center gap-2 mb-6 scale-95 active:scale-90 transition-transform">
+<span class="material-symbols-outlined text-sm" data-icon="add">add</span>
+<span>요소 추가</span>
+<span class="tooltip-text">새로운 디자인 요소 추가</span>
+</button>
+<div class="space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 text-[#aaabaf] hover:bg-[#171a1d] hover:text-[#f9f9fd] transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="help">help</span>
+<span>도움말</span>
+</a>
+<a class="flex items-center gap-3 px-3 py-2 text-[#aaabaf] hover:bg-[#171a1d] hover:text-[#f9f9fd] transition-all duration-200" href="#">
+<span class="material-symbols-outlined" data-icon="chat_bubble">chat_bubble</span>
+<span>피드백</span>
+</a>
+</div>
+</div>
+</aside>
+<div class="flex-1 flex flex-col min-w-0 bg-background">
+<!-- TopNavBar (Updated with COMPONENTS_12) -->
+<header class="flex justify-between items-center w-full px-6 h-14 bg-[#0c0e11] dark:bg-[#0c0e11] border-b border-[#46484b]/15 font-['Manrope'] text-sm tracking-tight z-50">
+<div class="flex items-center gap-8">
+<span class="text-lg font-bold tracking-tighter text-[#f9f9fd]">Synthetix Studio</span>
+<nav class="hidden md:flex items-center gap-6">
+<a class="text-[#f9f9fd] border-b-2 border-[#9ba8ff] pb-1 transition-colors" href="#">프로젝트</a>
+<a class="text-[#aaabaf] hover:text-[#f9f9fd] transition-colors" href="#">에셋</a>
+<a class="text-[#aaabaf] hover:text-[#f9f9fd] transition-colors" href="#">히스토리</a>
+<a class="text-[#aaabaf] hover:text-[#f9f9fd] transition-colors" href="#">설정</a>
+</nav>
+</div>
+<div class="flex items-center gap-6">
+<!-- Theme Switcher -->
+<div class="flex items-center bg-surface-container rounded-full p-1 border border-outline-variant/10">
+<button class="w-7 h-7 flex items-center justify-center rounded-full bg-primary/20 text-primary tooltip-container" title="다크 모드">
+<span class="material-symbols-outlined text-base" data-icon="dark_mode">dark_mode</span>
+<span class="tooltip-text">다크</span>
+</button>
+<button class="w-7 h-7 flex items-center justify-center rounded-full text-[#aaabaf] hover:text-[#f9f9fd] tooltip-container" title="라이트 모드">
+<span class="material-symbols-outlined text-base" data-icon="light_mode">light_mode</span>
+<span class="tooltip-text">라이트</span>
+</button>
+<button class="w-7 h-7 flex items-center justify-center rounded-full text-[#aaabaf] hover:text-[#f9f9fd] tooltip-container" title="커스텀 테마">
+<span class="material-symbols-outlined text-base" data-icon="palette">palette</span>
+<span class="tooltip-text">커스텀</span>
+</button>
+</div>
+<div class="flex items-center gap-4">
+<button class="hidden sm:block text-[#aaabaf] hover:text-[#f9f9fd] font-medium transition-colors scale-95 active:scale-90 duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] tooltip-container">
+                        저장
+                        <span class="tooltip-text">변경사항 저장 (Ctrl+S)</span>
+</button>
+<button class="primary-gradient text-on-primary-container px-4 py-1.5 rounded-sm font-semibold scale-95 active:scale-90 duration-200 ease-[cubic-bezier(0.16,1,0.3,1)] transition-transform tooltip-container">
+                        내보내기
+                        <span class="tooltip-text">CSS/HTML 코드로 추출</span>
+</button>
+<div class="w-8 h-8 rounded-full overflow-hidden border border-outline-variant/20 cursor-pointer tooltip-container">
+<span class="material-symbols-outlined text-[#f9f9fd] text-2xl flex items-center justify-center h-full w-full" data-icon="account_circle">account_circle</span>
+<span class="tooltip-text">계정 설정</span>
+</div>
+</div>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="flex-1 overflow-y-auto custom-scrollbar p-6 md:p-10">
+<!-- Dashboard Header -->
+<div class="flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+<div>
+<h1 class="text-3xl font-headline font-extrabold text-on-surface tracking-tight mb-2">내 프로젝트</h1>
+<p class="text-on-surface-variant font-body max-w-lg">Synthetix Studio 시각적 편집기를 사용하여 정밀한 인터페이스 컴포넌트와 아키텍처 구조를 관리하세요.</p>
+</div>
+<div class="flex items-center gap-3">
+<div class="relative">
+<input class="bg-surface-container border-none text-on-surface placeholder:text-on-surface-variant/50 px-4 py-2.5 pl-10 rounded-sm w-64 focus:ring-1 focus:ring-primary/30 transition-all font-body text-sm" placeholder="프로젝트 검색..." type="text"/>
+<span class="material-symbols-outlined absolute left-3 top-2.5 text-on-surface-variant text-lg" data-icon="search">search</span>
+</div>
+<button class="primary-gradient text-on-primary-container px-6 py-2.5 rounded-sm font-bold font-headline flex items-center gap-2 hover:brightness-110 transition-all scale-100 active:scale-95 tooltip-container">
+<span class="material-symbols-outlined" data-icon="add">add</span>
+                        새 프로젝트 생성
+                        <span class="tooltip-text">새로운 빈 캔버스 시작</span>
+</button>
+</div>
+</div>
+<!-- Projects Bento Grid -->
+<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+<!-- Project Card 1 -->
+<div class="group relative flex flex-col bg-surface-container-low rounded-lg overflow-hidden transition-all duration-300 hover:translate-y-[-4px] cursor-pointer tooltip-container">
+<div class="h-48 bg-surface-container-lowest relative overflow-hidden">
+<div class="absolute inset-0 opacity-40 mix-blend-overlay bg-gradient-to-tr from-primary/20 to-transparent"></div>
+<div class="absolute inset-0 flex items-center justify-center p-8">
+<div class="w-full h-full border border-outline-variant/20 rounded-md bg-surface-container/50 flex flex-col p-4 gap-2">
+<div class="w-1/2 h-2 bg-primary/20 rounded-full"></div>
+<div class="w-3/4 h-2 bg-primary/20 rounded-full"></div>
+<div class="flex-1 grid grid-cols-2 gap-2 mt-2">
+<div class="bg-primary/5 rounded-sm border border-primary/10"></div>
+<div class="bg-primary/5 rounded-sm border border-primary/10"></div>
+</div>
+</div>
+</div>
+</div>
+<div class="p-6 flex flex-col">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h3 class="text-lg font-bold text-on-surface font-headline leading-none mb-1 group-hover:text-primary transition-colors">이커머스 UI 라이브러리</h3>
+<span class="text-xs font-mono text-on-surface-variant">/projects/ecommerce-ui-v2</span>
+</div>
+<button class="text-on-surface-variant hover:text-on-surface">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+<div class="flex items-center gap-4 mt-auto">
+<div class="flex items-center gap-1.5 text-on-surface-variant text-xs">
+<span class="material-symbols-outlined text-sm" data-icon="widgets">widgets</span>
+<span>42개 컴포넌트</span>
+</div>
+<div class="flex items-center gap-1.5 text-on-surface-variant text-xs">
+<span class="material-symbols-outlined text-sm" data-icon="schedule">schedule</span>
+<span>2시간 전</span>
+</div>
+</div>
+</div>
+<span class="tooltip-text">이 프로젝트 편집하기</span>
+</div>
+<!-- Project Card 2 -->
+<div class="group relative flex flex-col bg-surface-container-low rounded-lg overflow-hidden transition-all duration-300 hover:translate-y-[-4px] cursor-pointer tooltip-container">
+<div class="h-48 bg-surface-container-lowest relative overflow-hidden">
+<div class="absolute inset-0 opacity-40 mix-blend-overlay bg-gradient-to-br from-tertiary-dim/20 to-transparent"></div>
+<div class="absolute inset-0 flex items-center justify-center p-8">
+<div class="w-full h-full flex flex-col items-center justify-center gap-4">
+<div class="w-16 h-16 rounded-full border-2 border-tertiary-dim/30 flex items-center justify-center">
+<div class="w-10 h-10 rounded-full bg-tertiary-dim/10"></div>
+</div>
+<div class="w-32 h-2 bg-on-surface-variant/10 rounded-full"></div>
+</div>
+</div>
+</div>
+<div class="p-6 flex flex-col">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h3 class="text-lg font-bold text-on-surface font-headline leading-none mb-1 group-hover:text-primary transition-colors">포트폴리오 랜딩 페이지</h3>
+<span class="text-xs font-mono text-on-surface-variant">/projects/minimal-folio</span>
+</div>
+<button class="text-on-surface-variant hover:text-on-surface">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+<div class="flex items-center gap-4 mt-auto">
+<div class="flex items-center gap-1.5 text-on-surface-variant text-xs">
+<span class="material-symbols-outlined text-sm" data-icon="widgets">widgets</span>
+<span>12개 컴포넌트</span>
+</div>
+<div class="flex items-center gap-1.5 text-on-surface-variant text-xs">
+<span class="material-symbols-outlined text-sm" data-icon="schedule">schedule</span>
+<span>어제</span>
+</div>
+</div>
+</div>
+<span class="tooltip-text">이 프로젝트 편집하기</span>
+</div>
+<!-- Project Card 3 -->
+<div class="group relative flex flex-col bg-surface-container-low rounded-lg overflow-hidden transition-all duration-300 hover:translate-y-[-4px] cursor-pointer tooltip-container">
+<div class="h-48 bg-surface-container-lowest relative overflow-hidden">
+<div class="absolute inset-0 opacity-40 mix-blend-overlay bg-gradient-to-bl from-error/20 to-transparent"></div>
+<div class="absolute inset-0 flex items-center justify-center p-8">
+<div class="grid grid-cols-3 gap-3 w-full h-full">
+<div class="col-span-2 bg-surface-container/50 border border-outline-variant/20 rounded-sm"></div>
+<div class="bg-surface-container/30 border border-outline-variant/10 rounded-sm"></div>
+<div class="bg-surface-container/30 border border-outline-variant/10 rounded-sm"></div>
+<div class="col-span-2 bg-surface-container/50 border border-outline-variant/20 rounded-sm"></div>
+</div>
+</div>
+</div>
+<div class="p-6 flex flex-col">
+<div class="flex justify-between items-start mb-4">
+<div>
+<h3 class="text-lg font-bold text-on-surface font-headline leading-none mb-1 group-hover:text-primary transition-colors">관리자 CRM 대시보드</h3>
+<span class="text-xs font-mono text-on-surface-variant">/projects/internal-crm</span>
+</div>
+<button class="text-on-surface-variant hover:text-on-surface">
+<span class="material-symbols-outlined" data-icon="more_vert">more_vert</span>
+</button>
+</div>
+<div class="flex items-center gap-4 mt-auto">
+<div class="flex items-center gap-1.5 text-on-surface-variant text-xs">
+<span class="material-symbols-outlined text-sm" data-icon="widgets">widgets</span>
+<span>86개 컴포넌트</span>
+</div>
+<div class="flex items-center gap-1.5 text-on-surface-variant text-xs">
+<span class="material-symbols-outlined text-sm" data-icon="schedule">schedule</span>
+<span>3일 전</span>
+</div>
+</div>
+</div>
+<span class="tooltip-text">이 프로젝트 편집하기</span>
+</div>
+<!-- New Project Placeholder Card -->
+<div class="group relative flex flex-col bg-surface-container/30 border-2 border-dashed border-outline-variant/20 rounded-lg overflow-hidden transition-all duration-300 hover:border-primary/40 hover:bg-surface-container/50 cursor-pointer h-full min-h-[300px] items-center justify-center gap-4 tooltip-container">
+<div class="w-14 h-14 rounded-full bg-surface-container flex items-center justify-center text-on-surface-variant group-hover:text-primary group-hover:bg-primary/10 transition-all">
+<span class="material-symbols-outlined text-3xl" data-icon="add">add</span>
+</div>
+<div class="text-center">
+<span class="block font-headline font-bold text-on-surface">새 아키텍처</span>
+<span class="block text-xs text-on-surface-variant mt-1">백지에서 시작하기</span>
+</div>
+<span class="tooltip-text">새로운 프로젝트 템플릿 선택</span>
+</div>
+</div>
+<!-- Recent Activity Section -->
+<div class="mt-16">
+<div class="flex items-center justify-between mb-8">
+<h2 class="text-xl font-headline font-bold text-on-surface">최근 활동</h2>
+<button class="text-primary text-sm font-semibold hover:underline">모두 보기</button>
+</div>
+<div class="bg-surface-container-low rounded-xl overflow-hidden">
+<table class="w-full text-left border-collapse">
+<thead>
+<tr class="border-b border-outline-variant/10">
+<th class="px-6 py-4 text-xs font-bold font-headline text-on-surface-variant uppercase tracking-wider">프로젝트</th>
+<th class="px-6 py-4 text-xs font-bold font-headline text-on-surface-variant uppercase tracking-wider">작업</th>
+<th class="px-6 py-4 text-xs font-bold font-headline text-on-surface-variant uppercase tracking-wider">사용자</th>
+<th class="px-6 py-4 text-xs font-bold font-headline text-on-surface-variant uppercase tracking-wider">시간</th>
+</tr>
+</thead>
+<tbody class="divide-y divide-outline-variant/5">
+<tr class="hover:bg-surface-container transition-colors">
+<td class="px-6 py-4 font-body font-medium text-on-surface">이커머스 UI 라이브러리</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-primary/10 text-primary">배포됨</span>
+</td>
+<td class="px-6 py-4 flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center text-[10px] font-bold">JD</div>
+<span class="text-sm text-on-surface-variant">홍길동</span>
+</td>
+<td class="px-6 py-4 text-sm font-mono text-on-surface-variant">오후 2:22</td>
+</tr>
+<tr class="hover:bg-surface-container transition-colors">
+<td class="px-6 py-4 font-body font-medium text-on-surface">관리자 CRM 대시보드</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-tertiary-container/10 text-tertiary">수정됨</span>
+</td>
+<td class="px-6 py-4 flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-primary-container text-on-primary-container flex items-center justify-center text-[10px] font-bold">MK</div>
+<span class="text-sm text-on-surface-variant">김영희</span>
+</td>
+<td class="px-6 py-4 text-sm font-mono text-on-surface-variant">오전 9:15</td>
+</tr>
+<tr class="hover:bg-surface-container transition-colors">
+<td class="px-6 py-4 font-body font-medium text-on-surface">포트폴리오 랜딩 페이지</td>
+<td class="px-6 py-4">
+<span class="inline-flex items-center px-2.5 py-0.5 rounded-full text-xs font-medium bg-error-container/10 text-error">컴포넌트 삭제</span>
+</td>
+<td class="px-6 py-4 flex items-center gap-2">
+<div class="w-6 h-6 rounded-full bg-secondary-container text-on-secondary-container flex items-center justify-center text-[10px] font-bold">JD</div>
+<span class="text-sm text-on-surface-variant">홍길동</span>
+</td>
+<td class="px-6 py-4 text-sm font-mono text-on-surface-variant">어제</td>
+</tr>
+</tbody>
+</table>
+</div>
+</div>
+</main>
+</div>
+</div>
+<!-- Floating Canvas Controller -->
+<div class="fixed bottom-6 left-1/2 -translate-x-1/2 flex items-center gap-4 px-4 py-2 glass-panel rounded-full border border-outline-variant/10 z-50">
+<button class="p-2 text-on-surface-variant hover:text-on-surface transition-colors tooltip-container">
+<span class="material-symbols-outlined" data-icon="zoom_in">zoom_in</span>
+<span class="tooltip-text">확대</span>
+</button>
+<div class="w-px h-4 bg-outline-variant/20"></div>
+<span class="text-xs font-mono text-on-surface-variant px-2">100%</span>
+<div class="w-px h-4 bg-outline-variant/20"></div>
+<button class="p-2 text-on-surface-variant hover:text-on-surface transition-colors tooltip-container">
+<span class="material-symbols-outlined" data-icon="zoom_out">zoom_out</span>
+<span class="tooltip-text">축소</span>
+</button>
+<div class="w-px h-4 bg-outline-variant/20"></div>
+<button class="p-2 text-on-surface-variant hover:text-on-surface transition-colors tooltip-container">
+<span class="material-symbols-outlined" data-icon="grid_view">grid_view</span>
+<span class="tooltip-text">그리드 보기 설정</span>
+</button>
+</div>
+</body></html>

@@ -1,0 +1,112 @@
+@import "tailwindcss";
+
+:root {
+  color-scheme: dark;
+  --background: #0c0e11;
+  --surface-low: #111417;
+  --surface: #171a1d;
+  --surface-raised: #1d2024;
+  --surface-highest: #23262a;
+  --surface-bright: #292c31;
+  --surface-black: #000000;
+  --text-primary: #f9f9fd;
+  --text-secondary: #aaabaf;
+  --text-muted: #747579;
+  --color-primary: #9ba8ff;
+  --color-primary-dim: #4963ff;
+  --color-on-primary: #001470;
+  --color-tertiary: #81ecff;
+  --color-danger: #ff6e84;
+  --outline: rgba(70, 72, 75, 0.15);
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html,
+body {
+  min-height: 100%;
+}
+
+body {
+  margin: 0;
+  background:
+    radial-gradient(circle at top right, rgba(73, 99, 255, 0.12), transparent 28%),
+    radial-gradient(circle at bottom left, rgba(0, 212, 236, 0.08), transparent 24%),
+    var(--background);
+  color: var(--text-primary);
+  font-family: var(--font-body), sans-serif;
+}
+
+h1,
+h2,
+h3,
+h4,
+h5,
+h6 {
+  font-family: var(--font-headline), sans-serif;
+}
+
+code,
+pre,
+.font-mono {
+  font-family: var(--font-mono), monospace;
+}
+
+button,
+input,
+select,
+textarea {
+  font: inherit;
+}
+
+::selection {
+  background: rgba(155, 168, 255, 0.28);
+  color: var(--text-primary);
+}
+
+.scrollbar-thin {
+  scrollbar-width: thin;
+  scrollbar-color: var(--surface-highest) transparent;
+}
+
+.scrollbar-thin::-webkit-scrollbar {
+  width: 8px;
+  height: 8px;
+}
+
+.scrollbar-thin::-webkit-scrollbar-thumb {
+  border-radius: 999px;
+  background: var(--surface-highest);
+}
+
+.canvas-grid {
+  background-image:
+    linear-gradient(rgba(249, 249, 253, 0.03) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(249, 249, 253, 0.03) 1px, transparent 1px);
+  background-size: 36px 36px;
+}
+
+.glass-panel {
+  background: rgba(41, 44, 49, 0.72);
+  backdrop-filter: blur(18px);
+}
+
+.surface-panel {
+  background: linear-gradient(180deg, rgba(29, 32, 36, 0.96) 0%, rgba(23, 26, 29, 0.96) 100%);
+  border: 1px solid rgba(70, 72, 75, 0.15);
+  box-shadow: 0 20px 48px rgba(0, 0, 0, 0.35);
+}
+
+.metric-bar {
+  position: relative;
+  overflow: hidden;
+}
+
+.metric-bar::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(90deg, rgba(155, 168, 255, 0.9), rgba(129, 236, 255, 0.9));
+}

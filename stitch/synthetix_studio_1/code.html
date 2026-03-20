@@ -1,0 +1,393 @@
+<!DOCTYPE html>
+
+<html class="dark" lang="ko"><head>
+<meta charset="utf-8"/>
+<meta content="width=device-width, initial-scale=1.0" name="viewport"/>
+<script src="https://cdn.tailwindcss.com?plugins=forms,container-queries"></script>
+<link href="https://fonts.googleapis.com/css2?family=Manrope:wght@400;500;600;700;800&amp;family=Inter:wght@400;500;600&amp;family=Roboto+Mono&amp;display=swap" rel="stylesheet"/>
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:wght,FILL@100..700,0..1&amp;display=swap" rel="stylesheet"/>
+<script id="tailwind-config">
+        tailwind.config = {
+            darkMode: "class",
+            theme: {
+                extend: {
+                    colors: {
+                        "inverse-on-surface": "#535559",
+                        "surface-variant": "#23262a",
+                        "primary-fixed-dim": "#778aff",
+                        "on-error": "#490013",
+                        "on-surface": "#f9f9fd",
+                        "error-dim": "#d73357",
+                        "secondary-container": "#2e4b57",
+                        "background": "#0c0e11",
+                        "on-primary": "#001c8e",
+                        "error": "#ff6e84",
+                        "outline": "#747579",
+                        "on-primary-container": "#001470",
+                        "tertiary-dim": "#00d4ec",
+                        "tertiary-container": "#00e3fd",
+                        "on-tertiary": "#005762",
+                        "outline-variant": "#46484b",
+                        "surface-container": "#171a1d",
+                        "secondary": "#c9e7f7",
+                        "tertiary-fixed": "#00e3fd",
+                        "secondary-dim": "#bbd9e9",
+                        "on-secondary-fixed": "#264350",
+                        "on-primary-fixed": "#000000",
+                        "surface-container-high": "#1d2024",
+                        "surface-tint": "#9ba8ff",
+                        "on-secondary-container": "#b7d5e5",
+                        "secondary-fixed-dim": "#bbd9e9",
+                        "on-primary-fixed-variant": "#001a88",
+                        "on-tertiary-fixed": "#003840",
+                        "on-surface-variant": "#aaabaf",
+                        "on-error-container": "#ffb2b9",
+                        "error-container": "#a70138",
+                        "on-background": "#f9f9fd",
+                        "primary-dim": "#4963ff",
+                        "tertiary-fixed-dim": "#00d4ec",
+                        "secondary-fixed": "#c9e7f7",
+                        "surface-container-low": "#111417",
+                        "surface-container-lowest": "#000000",
+                        "on-secondary-fixed-variant": "#435f6d",
+                        "surface-dim": "#0c0e11",
+                        "on-tertiary-container": "#004d57",
+                        "surface-container-highest": "#23262a",
+                        "primary": "#9ba8ff",
+                        "inverse-surface": "#f9f9fd",
+                        "tertiary": "#81ecff",
+                        "surface-bright": "#292c31",
+                        "primary-container": "#8999ff",
+                        "primary-fixed": "#8999ff",
+                        "on-secondary": "#395663",
+                        "surface": "#0c0e11",
+                        "inverse-primary": "#2949ef",
+                        "on-tertiary-fixed-variant": "#005762"
+                    },
+                    fontFamily: {
+                        "headline": ["Manrope"],
+                        "body": ["Inter"],
+                        "label": ["Inter"],
+                        "mono": ["Roboto Mono"]
+                    },
+                    borderRadius: {"DEFAULT": "0.125rem", "lg": "0.25rem", "xl": "0.5rem", "full": "0.75rem"},
+                },
+            },
+        }
+    </script>
+<style>
+        .material-symbols-outlined {
+            font-variation-settings: 'FILL' 0, 'wght' 400, 'GRAD' 0, 'opsz' 24;
+            vertical-align: middle;
+        }
+        body {
+            background-color: #0c0e11;
+            color: #f9f9fd;
+            font-family: 'Inter', sans-serif;
+        }
+        .glass-panel {
+            background: rgba(41, 44, 49, 0.8);
+            backdrop-filter: blur(20px);
+        }
+        .primary-gradient {
+            background: linear-gradient(135deg, #9ba8ff 0%, #4963ff 100%);
+        }
+        .ghost-border {
+            border: 1px solid rgba(70, 72, 75, 0.15);
+        }
+        .custom-scrollbar::-webkit-scrollbar {
+            width: 6px;
+        }
+        .custom-scrollbar::-webkit-scrollbar-track {
+            background: transparent;
+        }
+        .custom-scrollbar::-webkit-scrollbar-thumb {
+            background: #23262a;
+            border-radius: 10px;
+        }
+    </style>
+</head>
+<body class="flex h-screen overflow-hidden bg-background">
+<!-- SideNavBar (Shared Component) -->
+<aside class="hidden md:flex flex-col h-full w-64 bg-[#111417] py-4 px-6 shrink-0 z-50">
+<div class="mb-8">
+<h1 class="text-lg font-bold text-[#f9f9fd] font-headline">Project Workspace</h1>
+<p class="text-xs text-[#aaabaf] font-body mt-1">Main Canvas</p>
+</div>
+<nav class="flex-grow space-y-1">
+<a class="flex items-center gap-3 px-3 py-2 text-[#aaabaf] hover:bg-[#171a1d] hover:text-[#f9f9fd] transition-all duration-200 cubic-bezier(0.16, 1, 0.3, 1) font-body text-[0.875rem]" href="#">
+<span class="material-symbols-outlined">category</span>
+                Elements
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-[#aaabaf] hover:bg-[#171a1d] hover:text-[#f9f9fd] transition-all duration-200 cubic-bezier(0.16, 1, 0.3, 1) font-body text-[0.875rem]" href="#">
+<span class="material-symbols-outlined">layers</span>
+                Layers
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-[#aaabaf] hover:bg-[#171a1d] hover:text-[#f9f9fd] transition-all duration-200 cubic-bezier(0.16, 1, 0.3, 1) font-body text-[0.875rem]" href="#">
+<span class="material-symbols-outlined">widgets</span>
+                Components
+            </a>
+<!-- Active State: Settings (matches current page intent) -->
+<a class="flex items-center gap-3 px-3 py-2 bg-[#23262a] text-[#f9f9fd] font-semibold rounded-md transition-all duration-200 cubic-bezier(0.16, 1, 0.3, 1) font-body text-[0.875rem]" href="#">
+<span class="material-symbols-outlined">settings</span>
+                Settings
+            </a>
+</nav>
+<button class="mt-4 primary-gradient text-on-primary-container font-semibold py-2 rounded-sm text-sm scale-95 active:scale-90 transition-transform flex items-center justify-center gap-2">
+<span class="material-symbols-outlined text-sm">add</span>
+            Add Element
+        </button>
+<div class="mt-auto space-y-1 pt-4">
+<a class="flex items-center gap-3 px-3 py-2 text-[#aaabaf] hover:bg-[#171a1d] hover:text-[#f9f9fd] transition-all duration-200 font-body text-[0.875rem]" href="#">
+<span class="material-symbols-outlined">help</span>
+                Help
+            </a>
+<a class="flex items-center gap-3 px-3 py-2 text-[#aaabaf] hover:bg-[#171a1d] hover:text-[#f9f9fd] transition-all duration-200 font-body text-[0.875rem]" href="#">
+<span class="material-symbols-outlined">chat_bubble</span>
+                Feedback
+            </a>
+</div>
+</aside>
+<div class="flex flex-col flex-grow w-full">
+<!-- TopNavBar (Updated to Synthetix Studio identity) -->
+<header class="flex justify-between items-center w-full px-6 h-14 bg-[#0c0e11] border-b border-[#46484b]/15 z-50">
+<div class="flex items-center gap-8">
+<span class="text-lg font-bold tracking-tighter text-[#f9f9fd] font-headline">Synthetix Studio</span>
+<nav class="hidden md:flex items-center gap-6 font-['Manrope'] text-sm tracking-tight">
+<a class="text-[#aaabaf] hover:text-[#f9f9fd] transition-colors" href="#">Projects</a>
+<a class="text-[#aaabaf] hover:text-[#f9f9fd] transition-colors" href="#">Assets</a>
+<a class="text-[#aaabaf] hover:text-[#f9f9fd] transition-colors" href="#">History</a>
+<a class="text-[#f9f9fd] border-b-2 border-[#9ba8ff] pb-1" href="#">Settings</a>
+</nav>
+</div>
+<div class="flex items-center gap-3">
+<!-- Actions Container -->
+<div class="flex items-center gap-2">
+<!-- Theme Switcher -->
+<div class="flex bg-surface-container-low p-0.5 rounded-sm mr-2">
+<button class="p-1 text-[#9ba8ff] hover:bg-[#23262a] rounded-sm transition-all"><span class="material-symbols-outlined text-[18px]">dark_mode</span></button>
+<button class="p-1 text-[#aaabaf] hover:bg-[#23262a] rounded-sm transition-all"><span class="material-symbols-outlined text-[18px]">light_mode</span></button>
+<button class="p-1 text-[#aaabaf] hover:bg-[#23262a] rounded-sm transition-all"><span class="material-symbols-outlined text-[18px]">palette</span></button>
+</div>
+<button class="text-[#aaabaf] px-3 py-1.5 hover:text-[#f9f9fd] hover:bg-[#23262a] transition-all rounded-sm font-body text-sm">Save</button>
+<button class="primary-gradient text-on-primary-container px-4 py-1.5 rounded-sm font-semibold text-sm scale-95 active:scale-90 transition-transform">Export</button>
+</div>
+<div class="h-6 w-px bg-outline-variant/30 mx-2"></div>
+<button class="flex items-center gap-2 group">
+<span class="text-sm font-medium text-[#aaabaf] group-hover:text-[#f9f9fd] transition-colors hidden sm:inline">Admin</span>
+<span class="text-[#9ba8ff] material-symbols-outlined text-2xl group-active:scale-95 transition-transform">account_circle</span>
+</button>
+</div>
+</header>
+<!-- Main Content Area -->
+<main class="flex-grow overflow-y-auto bg-surface-container-lowest p-8 custom-scrollbar">
+<div class="max-w-6xl mx-auto">
+<!-- Header Section -->
+<div class="mb-10">
+<h2 class="text-3xl font-extrabold font-headline tracking-tight text-on-surface">사용자 프로필 및 시스템 설정</h2>
+<p class="text-on-surface-variant mt-2 font-body">계정 보안, API 통합 및 시스템 리소스 모니터링을 관리합니다.</p>
+</div>
+<!-- Dashboard Grid -->
+<div class="grid grid-cols-1 md:grid-cols-3 gap-6 mb-10">
+<div class="bg-surface-container p-6 rounded-lg ghost-border flex flex-col gap-2">
+<span class="text-xs font-semibold text-on-surface-variant uppercase tracking-widest font-label">총 프로젝트 수</span>
+<div class="flex items-end gap-2">
+<span class="text-3xl font-bold font-headline">42</span>
+<span class="text-primary text-sm font-mono mb-1">+12%</span>
+</div>
+<div class="mt-4 w-full bg-surface-container-highest h-1 rounded-full overflow-hidden">
+<div class="bg-primary h-full w-[65%]"></div>
+</div>
+</div>
+<div class="bg-surface-container p-6 rounded-lg ghost-border flex flex-col gap-2">
+<span class="text-xs font-semibold text-on-surface-variant uppercase tracking-widest font-label">컴포넌트 라이브러리</span>
+<div class="flex items-end gap-2">
+<span class="text-3xl font-bold font-headline">1,284</span>
+<span class="text-tertiary text-sm font-mono mb-1">Active</span>
+</div>
+<div class="mt-4 w-full bg-surface-container-highest h-1 rounded-full overflow-hidden">
+<div class="bg-tertiary h-full w-[85%]"></div>
+</div>
+</div>
+<div class="bg-surface-container p-6 rounded-lg ghost-border flex flex-col gap-2">
+<span class="text-xs font-semibold text-on-surface-variant uppercase tracking-widest font-label">저장 공간 사용량</span>
+<div class="flex items-end gap-2">
+<span class="text-3xl font-bold font-headline">14.2 GB</span>
+<span class="text-on-surface-variant text-sm font-mono mb-1">/ 50 GB</span>
+</div>
+<div class="mt-4 w-full bg-surface-container-highest h-1 rounded-full overflow-hidden">
+<div class="bg-secondary h-full w-[28%]"></div>
+</div>
+</div>
+</div>
+<!-- Two-Column Layout -->
+<div class="grid grid-cols-1 lg:grid-cols-5 gap-8">
+<!-- Left: Form Controls -->
+<div class="lg:col-span-3 space-y-8">
+<!-- Account Settings Card -->
+<section class="bg-surface-container rounded-lg p-6 ghost-border">
+<h3 class="text-lg font-bold font-headline mb-6 flex items-center gap-2">
+<span class="material-symbols-outlined text-primary">person</span>
+                                계정 정보 설정
+                            </h3>
+<div class="space-y-6">
+<div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+<div class="space-y-2">
+<label class="text-xs text-on-surface-variant font-label uppercase">사용자 이름</label>
+<input class="w-full bg-surface-container-low border-none focus:ring-1 focus:ring-primary text-on-surface rounded-sm py-2 px-3 font-mono text-sm" type="text" value="Synthetix_Admin"/>
+</div>
+<div class="space-y-2">
+<label class="text-xs text-on-surface-variant font-label uppercase">이메일 주소</label>
+<input class="w-full bg-surface-container-low border-none focus:ring-1 focus:ring-primary text-on-surface rounded-sm py-2 px-3 font-mono text-sm" type="email" value="admin@synthetix.studio"/>
+</div>
+</div>
+<div class="pt-2">
+<button class="bg-surface-container-highest hover:bg-surface-bright text-on-surface text-sm px-4 py-2 rounded-sm transition-colors cubic-bezier(0.16, 1, 0.3, 1)">
+                                        프로필 업데이트
+                                    </button>
+</div>
+</div>
+</section>
+<!-- API & Integration Card -->
+<section class="bg-surface-container rounded-lg p-6 ghost-border">
+<div class="flex justify-between items-start mb-6">
+<h3 class="text-lg font-bold font-headline flex items-center gap-2">
+<span class="material-symbols-outlined text-tertiary">key</span>
+                                    API 및 연동 관리
+                                </h3>
+<button class="text-xs text-primary font-semibold hover:underline">문서 보기</button>
+</div>
+<div class="space-y-4">
+<div class="bg-surface-container-low p-4 rounded-sm flex items-center justify-between group">
+<div class="flex flex-col">
+<span class="text-xs text-on-surface-variant font-label">운영 서버 API 키</span>
+<span class="font-mono text-sm text-on-surface mt-1">sk_live_51MzcXXXXXXXXXXXXXX</span>
+</div>
+<button class="material-symbols-outlined text-on-surface-variant opacity-0 group-hover:opacity-100 transition-opacity">content_copy</button>
+</div>
+<div class="flex gap-3">
+<button class="primary-gradient text-on-primary-container text-sm font-semibold px-4 py-2 rounded-sm scale-95 active:scale-90 transition-transform">
+                                        새 API 키 생성
+                                    </button>
+<button class="bg-error-container/20 text-error-dim border border-error-container/30 text-sm font-semibold px-4 py-2 rounded-sm hover:bg-error-container/30 transition-colors">
+                                        모든 키 비활성화
+                                    </button>
+</div>
+</div>
+</section>
+</div>
+<!-- Right: Table/List -->
+<div class="lg:col-span-2 space-y-8">
+<section class="bg-surface-container rounded-lg p-6 ghost-border h-full flex flex-col">
+<div class="flex justify-between items-center mb-6">
+<h3 class="text-lg font-bold font-headline">CSS 모듈 및 컴포넌트</h3>
+<div class="relative">
+<span class="material-symbols-outlined absolute left-2 top-1/2 -translate-y-1/2 text-on-surface-variant text-sm">search</span>
+<input class="bg-surface-container-low border-none rounded-full py-1 pl-8 pr-3 text-xs w-32 focus:w-48 transition-all focus:ring-1 focus:ring-primary" placeholder="검색..." type="text"/>
+</div>
+</div>
+<div class="flex-grow space-y-1">
+<!-- Table Header -->
+<div class="grid grid-cols-4 px-3 py-2 text-[10px] font-bold text-on-surface-variant uppercase tracking-widest font-label">
+<div class="col-span-2">이름</div>
+<div class="text-right">상태</div>
+<div class="text-right">수정일</div>
+</div>
+<!-- List Item 1 -->
+<div class="grid grid-cols-4 px-3 py-3 items-center hover:bg-surface-container-high rounded-sm transition-colors group cursor-pointer">
+<div class="col-span-2 flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-sm">inventory_2</span>
+<span class="text-xs font-mono">GlobalNav.module</span>
+</div>
+<div class="text-right">
+<span class="inline-block w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+</div>
+<div class="text-right text-[10px] text-on-surface-variant font-mono">2시간 전</div>
+</div>
+<!-- List Item 2 -->
+<div class="grid grid-cols-4 px-3 py-3 items-center hover:bg-surface-container-high rounded-sm transition-colors group cursor-pointer">
+<div class="col-span-2 flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-sm">inventory_2</span>
+<span class="text-xs font-mono">HeroSection.tsx</span>
+</div>
+<div class="text-right">
+<span class="inline-block w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+</div>
+<div class="text-right text-[10px] text-on-surface-variant font-mono">어제</div>
+</div>
+<!-- List Item 3 -->
+<div class="grid grid-cols-4 px-3 py-3 items-center hover:bg-surface-container-high rounded-sm transition-colors group cursor-pointer">
+<div class="col-span-2 flex items-center gap-3">
+<span class="material-symbols-outlined text-on-surface-variant text-sm">inventory_2</span>
+<span class="text-xs font-mono text-on-surface-variant">AuthModal.css</span>
+</div>
+<div class="text-right">
+<span class="inline-block w-1.5 h-1.5 rounded-full bg-outline"></span>
+</div>
+<div class="text-right text-[10px] text-on-surface-variant font-mono">3일 전</div>
+</div>
+<!-- List Item 4 -->
+<div class="grid grid-cols-4 px-3 py-3 items-center hover:bg-surface-container-high rounded-sm transition-colors group cursor-pointer">
+<div class="col-span-2 flex items-center gap-3">
+<span class="material-symbols-outlined text-primary text-sm">inventory_2</span>
+<span class="text-xs font-mono">DashboardGrid.tsx</span>
+</div>
+<div class="text-right">
+<span class="inline-block w-1.5 h-1.5 rounded-full bg-tertiary"></span>
+</div>
+<div class="text-right text-[10px] text-on-surface-variant font-mono">1주 전</div>
+</div>
+</div>
+<button class="mt-6 w-full py-2 text-xs font-semibold text-on-surface-variant hover:text-on-surface border border-dashed border-outline-variant/30 rounded-sm hover:bg-surface-container-low transition-all">
+                                모든 리소스 보기
+                            </button>
+</section>
+</div>
+</div>
+<!-- Footer System Status -->
+<div class="mt-12 flex flex-wrap items-center justify-between gap-4 p-4 glass-panel rounded-lg ghost-border">
+<div class="flex items-center gap-6">
+<div class="flex items-center gap-2">
+<span class="w-2 h-2 rounded-full bg-tertiary animate-pulse"></span>
+<span class="text-xs font-label text-on-surface">시스템 정상 작동 중</span>
+</div>
+<div class="flex items-center gap-2 text-on-surface-variant text-xs font-mono">
+<span class="material-symbols-outlined text-sm">memory</span>
+                            CPU: 12%
+                        </div>
+<div class="flex items-center gap-2 text-on-surface-variant text-xs font-mono">
+<span class="material-symbols-outlined text-sm">database</span>
+                            DB: Latency 24ms
+                        </div>
+</div>
+<div class="flex items-center gap-4">
+<span class="text-[10px] text-on-surface-variant font-mono">BUILD V2.4.8-STABLE</span>
+<div class="flex items-center gap-1">
+<button class="p-1 hover:text-primary transition-colors"><span class="material-symbols-outlined text-sm">dark_mode</span></button>
+<button class="p-1 hover:text-primary transition-colors"><span class="material-symbols-outlined text-sm">translate</span></button>
+</div>
+</div>
+</div>
+</div>
+</main>
+</div>
+<!-- Mobile Bottom NavBar (Shared Component Triggered by md:hidden) -->
+<nav class="md:hidden fixed bottom-0 left-0 right-0 h-16 bg-[#0c0e11] border-t border-[#46484b]/15 flex justify-around items-center px-4 z-50">
+<a class="flex flex-col items-center gap-1 text-[#aaabaf]" href="#">
+<span class="material-symbols-outlined text-xl">category</span>
+<span class="text-[10px] font-label">요소</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-[#aaabaf]" href="#">
+<span class="material-symbols-outlined text-xl">layers</span>
+<span class="text-[10px] font-label">레이어</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-[#aaabaf]" href="#">
+<span class="material-symbols-outlined text-xl">widgets</span>
+<span class="text-[10px] font-label">컴포넌트</span>
+</a>
+<a class="flex flex-col items-center gap-1 text-[#f9f9fd]" href="#">
+<span class="material-symbols-outlined text-xl" style="font-variation-settings: 'FILL' 1;">settings</span>
+<span class="text-[10px] font-label font-bold">설정</span>
+</a>
+</nav>
+</body></html>

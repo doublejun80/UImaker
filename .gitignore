@@ -1,0 +1,13 @@
+node_modules
+.next
+dist
+coverage
+.turbo
+package-lock.json
+yarn.lock
+.DS_Store
+*.tsbuildinfo
+.uiverse-web-dev*.log
+packages/schema/tests/*.js
+packages/schema/tests/*.d.ts
+packages/schema/tests/*.d.ts.map
