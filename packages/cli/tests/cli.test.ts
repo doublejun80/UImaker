@@ -34,6 +34,7 @@ function createBundle(): UiverseBundle {
       }
     ],
     settings: {
+      language: "ko",
       profileName: "Admin",
       profileEmail: "admin@uiverse.dev",
       defaultExportTarget: "react-tailwind",

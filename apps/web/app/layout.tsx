@@ -1,12 +1,7 @@
 import type { Metadata } from "next";
-import { Inter, Manrope, Roboto_Mono } from "next/font/google";
 import { StoreHydrator } from "@/components/providers/store-hydrator";
 import { TopHeader } from "@/components/chrome/top-header";
 import "./globals.css";
-
-const inter = Inter({ subsets: ["latin"], variable: "--font-body" });
-const manrope = Manrope({ subsets: ["latin"], variable: "--font-headline" });
-const robotoMono = Roboto_Mono({ subsets: ["latin"], variable: "--font-mono" });
 
 export const metadata: Metadata = {
   title: "Uiverse",
@@ -16,7 +11,7 @@ export const metadata: Metadata = {
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode }>): React.ReactElement {
   return (
     <html lang="en" className="dark">
-      <body className={`${inter.variable} ${manrope.variable} ${robotoMono.variable}`}>
+      <body>
         <StoreHydrator />
         <TopHeader />
         {children}

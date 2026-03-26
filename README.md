@@ -60,3 +60,7 @@ pnpm --filter @uiverse/cli exec uiverse generate ./bundle.json --format react-ta
 ## Cross-Machine Note
 
 The app code is shared through GitHub, but editor project data is stored in browser localStorage in V1. That means source code can be continued immediately on another machine after cloning, while in-browser project data does not sync automatically between computers.
+
+## Current Progress
+
+- See [`PROGRESS.md`](./PROGRESS.md) for the latest implementation log and verification status.

@@ -6,6 +6,9 @@ export type Breakpoint = (typeof BREAKPOINTS)[number];
 export const EXPORT_TARGETS = ["react-tailwind", "html-css"] as const;
 export type ExportTarget = (typeof EXPORT_TARGETS)[number];
 
+export const LANGUAGES = ["ko", "en"] as const;
+export type Language = (typeof LANGUAGES)[number];
+
 export const NODE_TYPES = [
   "root",
   "section",
@@ -20,11 +23,18 @@ export const NODE_TYPES = [
 export type NodeType = (typeof NODE_TYPES)[number];
 
 export const STYLE_PROPS = [
+  "position",
+  "top",
+  "left",
+  "right",
+  "bottom",
+  "zIndex",
   "display",
   "direction",
   "gap",
   "align",
   "justify",
+  "gridColumns",
   "width",
   "height",
   "padding",
@@ -41,6 +51,10 @@ export const STYLE_PROPS = [
   "borderWidth",
   "borderColor",
   "borderRadius",
+  "borderTopLeftRadius",
+  "borderTopRightRadius",
+  "borderBottomRightRadius",
+  "borderBottomLeftRadius",
   "opacity",
   "boxShadow"
 ] as const;
@@ -49,11 +63,18 @@ export type StyleProp = (typeof STYLE_PROPS)[number];
 export type ResponsiveValue<T extends string = string> = Partial<Record<Breakpoint, T>>;
 
 export interface NodeStyles {
+  position?: ResponsiveValue<"static" | "relative" | "absolute">;
+  top?: ResponsiveValue;
+  left?: ResponsiveValue;
+  right?: ResponsiveValue;
+  bottom?: ResponsiveValue;
+  zIndex?: ResponsiveValue;
   display?: ResponsiveValue<"block" | "flex" | "grid" | "none">;
   direction?: ResponsiveValue<"row" | "column">;
   gap?: ResponsiveValue;
   align?: ResponsiveValue<"start" | "center" | "end" | "stretch">;
   justify?: ResponsiveValue<"start" | "center" | "end" | "between" | "around">;
+  gridColumns?: ResponsiveValue<"1" | "2" | "3" | "4">;
   width?: ResponsiveValue;
   height?: ResponsiveValue;
   padding?: ResponsiveValue;
@@ -70,6 +91,10 @@ export interface NodeStyles {
   borderWidth?: ResponsiveValue;
   borderColor?: ResponsiveValue;
   borderRadius?: ResponsiveValue;
+  borderTopLeftRadius?: ResponsiveValue;
+  borderTopRightRadius?: ResponsiveValue;
+  borderBottomRightRadius?: ResponsiveValue;
+  borderBottomLeftRadius?: ResponsiveValue;
   opacity?: ResponsiveValue;
   boxShadow?: ResponsiveValue;
 }
@@ -104,6 +129,7 @@ export interface UiverseProject {
   name: string;
   slug: string;
   description: string;
+  designKitId?: string;
   createdAt: string;
   updatedAt: string;
   lastOpenedScreenId: string;
@@ -115,6 +141,7 @@ export interface UiverseThemeConfig {
 }
 
 export interface UiverseSettings {
+  language: Language;
   profileName: string;
   profileEmail: string;
   defaultExportTarget: ExportTarget;
@@ -142,7 +169,7 @@ export interface ValidationResult<T> {
 export interface GeneratedFile {
   path: string;
   content: string;
-  kind: "screen" | "style" | "manifest";
+  kind: "screen" | "style" | "manifest" | "support";
 }
 
 export interface GenerateOptions {

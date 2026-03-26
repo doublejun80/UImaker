@@ -2,6 +2,7 @@ import {
   BUNDLE_VERSION,
   BREAKPOINTS,
   EXPORT_TARGETS,
+  LANGUAGES,
   NODE_TYPES,
   STYLE_PROPS,
   type Breakpoint,
@@ -24,6 +25,18 @@ function isRecord(value: unknown): value is Record<string, unknown> {
 
 function isString(value: unknown): value is string {
   return typeof value === "string" && value.length > 0;
+}
+
+function createSafeSlug(value: string | undefined, fallback: string): string {
+  const slug = value
+    ?.normalize("NFKC")
+    .trim()
+    .toLowerCase()
+    .replace(/[^\p{Letter}\p{Number}]+/gu, "-")
+    .replace(/-{2,}/g, "-")
+    .replace(/^-+|-+$/g, "");
+
+  return slug || fallback;
 }
 
 function validateResponsiveStyle(
@@ -178,6 +191,10 @@ function validateSettings(
     errors.push(`${path}.profileEmail must be a non-empty string`);
   }
 
+  if (!isString(value.language) || !(LANGUAGES as readonly string[]).includes(value.language)) {
+    errors.push(`${path}.language must be a supported language`);
+  }
+
   if (
     !isString(value.defaultExportTarget) ||
     !(EXPORT_TARGETS as readonly string[]).includes(value.defaultExportTarget)
@@ -272,18 +289,27 @@ export function createBundleFromStoredProject(
   project: StoredProject,
   settings: UiverseSettings
 ): UiverseBundle {
+  const screens = project.screens.map((screen) => ({
+    ...screen,
+    slug: createSafeSlug(screen.slug || screen.name, `screen-${screen.id}`)
+  }));
+  const lastOpenedScreenId =
+    screens.find((screen) => screen.id === project.lastOpenedScreenId)?.id ??
+    screens[0]?.id ??
+    project.lastOpenedScreenId;
+
   return {
     version: BUNDLE_VERSION,
     project: {
       id: project.id,
       name: project.name,
-      slug: project.slug,
+      slug: createSafeSlug(project.slug || project.name, `project-${project.id}`),
       description: project.description,
       createdAt: project.createdAt,
       updatedAt: project.updatedAt,
-      lastOpenedScreenId: project.lastOpenedScreenId
+      lastOpenedScreenId
     },
-    screens: project.screens,
+    screens,
     settings,
     generatedAt: new Date().toISOString()
   };

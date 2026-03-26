@@ -33,6 +33,24 @@ export function resolveStyleValue(
 export function stylesToCanvasStyle(styles: NodeStyles, breakpoint: Breakpoint): CSSProperties {
   const style: CSSProperties = {};
 
+  const position = resolveStyleValue(styles, "position", breakpoint);
+  if (position) style.position = position as CSSProperties["position"];
+
+  const top = resolveStyleValue(styles, "top", breakpoint);
+  if (top) style.top = top;
+
+  const left = resolveStyleValue(styles, "left", breakpoint);
+  if (left) style.left = left;
+
+  const right = resolveStyleValue(styles, "right", breakpoint);
+  if (right) style.right = right;
+
+  const bottom = resolveStyleValue(styles, "bottom", breakpoint);
+  if (bottom) style.bottom = bottom;
+
+  const zIndex = resolveStyleValue(styles, "zIndex", breakpoint);
+  if (zIndex) style.zIndex = Number(zIndex) || zIndex;
+
   const display = resolveStyleValue(styles, "display", breakpoint);
   if (display) style.display = display as CSSProperties["display"];
 
@@ -59,6 +77,9 @@ export function stylesToCanvasStyle(styles: NodeStyles, breakpoint: Breakpoint):
               : justify
     ) as CSSProperties["justifyContent"];
   }
+
+  const gridColumns = resolveStyleValue(styles, "gridColumns", breakpoint);
+  if (gridColumns) style.gridTemplateColumns = `repeat(${gridColumns}, minmax(0, 1fr))`;
 
   const width = resolveStyleValue(styles, "width", breakpoint);
   if (width) style.width = width === "full" ? "100%" : width;
@@ -107,6 +128,18 @@ export function stylesToCanvasStyle(styles: NodeStyles, breakpoint: Breakpoint):
 
   const borderRadius = resolveStyleValue(styles, "borderRadius", breakpoint);
   if (borderRadius) style.borderRadius = borderRadius;
+
+  const borderTopLeftRadius = resolveStyleValue(styles, "borderTopLeftRadius", breakpoint);
+  if (borderTopLeftRadius) style.borderTopLeftRadius = borderTopLeftRadius;
+
+  const borderTopRightRadius = resolveStyleValue(styles, "borderTopRightRadius", breakpoint);
+  if (borderTopRightRadius) style.borderTopRightRadius = borderTopRightRadius;
+
+  const borderBottomRightRadius = resolveStyleValue(styles, "borderBottomRightRadius", breakpoint);
+  if (borderBottomRightRadius) style.borderBottomRightRadius = borderBottomRightRadius;
+
+  const borderBottomLeftRadius = resolveStyleValue(styles, "borderBottomLeftRadius", breakpoint);
+  if (borderBottomLeftRadius) style.borderBottomLeftRadius = borderBottomLeftRadius;
 
   const opacity = resolveStyleValue(styles, "opacity", breakpoint);
   if (opacity) style.opacity = Number(opacity);

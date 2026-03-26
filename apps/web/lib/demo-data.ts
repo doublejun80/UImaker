@@ -42,7 +42,7 @@ const launchHomeRoot: UiverseNode = {
         align: { base: "stretch", lg: "center" },
         gap: { base: "24px", lg: "40px" },
         padding: { base: "32px", lg: "48px" },
-        backgroundGradient: { base: "linear-gradient(135deg,#171a1d_0%,#0c0e11_100%)" },
+        backgroundGradient: { base: "linear-gradient(135deg, #171a1d 0%, #0c0e11 100%)" },
         borderRadius: { base: "20px" },
         borderWidth: { base: "1px" },
         borderStyle: { base: "solid" },
@@ -90,7 +90,7 @@ const launchHomeRoot: UiverseNode = {
                 fontSize: { base: "16px" },
                 fontWeight: { base: "700" },
                 color: { base: "#001470" },
-                backgroundGradient: { base: "linear-gradient(135deg,#9ba8ff_0%,#4963ff_100%)" },
+                backgroundGradient: { base: "linear-gradient(135deg, #9ba8ff 0%, #4963ff 100%)" },
                 borderRadius: { base: "6px" },
                 boxShadow: { base: "0px 20px 48px rgba(73,99,255,0.28)" }
               },
@@ -290,7 +290,7 @@ const pricingRoot: UiverseNode = {
             direction: { base: "column" },
             gap: { base: "14px" },
             padding: { base: "24px" },
-            backgroundGradient: { base: "linear-gradient(135deg,#171a1d_0%,#23262a_100%)" },
+            backgroundGradient: { base: "linear-gradient(135deg, #171a1d 0%, #23262a 100%)" },
             borderRadius: { base: "16px" }
           },
           children: [
@@ -460,7 +460,7 @@ export const demoProjects: StoredProject[] = [
                   styles: {
                     padding: { base: "14px 18px" },
                     color: { base: "#001470" },
-                    backgroundGradient: { base: "linear-gradient(135deg,#9ba8ff_0%,#4963ff_100%)" },
+                    backgroundGradient: { base: "linear-gradient(135deg, #9ba8ff 0%, #4963ff 100%)" },
                     borderRadius: { base: "8px" }
                   },
                   children: []
@@ -476,6 +476,7 @@ export const demoProjects: StoredProject[] = [
 ];
 
 export const demoSettings: UiverseSettings = {
+  language: "ko",
   profileName: "Studio Admin",
   profileEmail: "admin@uiverse.dev",
   defaultExportTarget: "react-tailwind",

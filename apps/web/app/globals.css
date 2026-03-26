@@ -2,6 +2,9 @@
 
 :root {
   color-scheme: dark;
+  --font-body: "Avenir Next", "Segoe UI", "Helvetica Neue", sans-serif;
+  --font-headline: "Avenir Next", "Segoe UI", "Helvetica Neue", sans-serif;
+  --font-mono: "SFMono-Regular", "SF Mono", "Cascadia Code", "JetBrains Mono", monospace;
   --background: #0c0e11;
   --surface-low: #111417;
   --surface: #171a1d;

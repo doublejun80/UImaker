@@ -132,12 +132,23 @@ export function moveNode(
     return root;
   }
 
+  const sourceEntry = flattenTree(root).find((entry) => entry.node.id === nodeId);
+  let safeTargetIndex = targetIndex;
+
+  if (
+    sourceEntry?.parentId === targetParentId &&
+    typeof safeTargetIndex === "number" &&
+    sourceEntry.index < safeTargetIndex
+  ) {
+    safeTargetIndex -= 1;
+  }
+
   const removed = removeNode(root, nodeId);
   if (!removed.removed) {
     return root;
   }
 
-  return insertNode(removed.root, targetParentId, removed.removed, targetIndex);
+  return insertNode(removed.root, targetParentId, removed.removed, safeTargetIndex);
 }
 
 export function countNodes(root: UiverseNode): number {

@@ -1,5 +1,5 @@
 import { describe, expect, it } from "vitest";
-import { BUNDLE_VERSION, validateBundle, type UiverseBundle } from "@uiverse/schema";
+import { BUNDLE_VERSION, createBundleFromStoredProject, validateBundle, type StoredProject, type UiverseBundle } from "@uiverse/schema";
 
 function createBundle(): UiverseBundle {
   return {
@@ -25,8 +25,8 @@ function createBundle(): UiverseBundle {
           type: "root",
           name: "Root",
           styles: {
-            display: { base: "flex" },
-            direction: { base: "column" }
+            display: { base: "grid" },
+            gridColumns: { base: "2" }
           },
           children: [
             {
@@ -42,6 +42,7 @@ function createBundle(): UiverseBundle {
       }
     ],
     settings: {
+      language: "ko",
       profileName: "Admin",
       profileEmail: "admin@uiverse.dev",
       defaultExportTarget: "react-tailwind",
@@ -82,5 +83,38 @@ describe("validateBundle", () => {
     const result = validateBundle(bundle);
     expect(result.valid).toBe(false);
     expect(result.errors.some((error) => error.includes("cannot own child nodes"))).toBe(true);
+  });
+
+  it("normalizes empty project and screen slugs while building a bundle", () => {
+    const settings = createBundle().settings;
+    const storedProject: StoredProject = {
+      id: "project-2",
+      name: "행사 소개 페이지",
+      slug: "",
+      description: "Slug normalization fixture",
+      createdAt: new Date("2026-03-18T00:00:00Z").toISOString(),
+      updatedAt: new Date("2026-03-20T00:00:00Z").toISOString(),
+      lastOpenedScreenId: "screen-2",
+      screens: [
+        {
+          id: "screen-2",
+          name: "메인 화면",
+          slug: "",
+          lastEditedAt: new Date("2026-03-20T00:00:00Z").toISOString(),
+          root: {
+            id: "root-2",
+            type: "root",
+            name: "Root",
+            styles: {},
+            children: []
+          }
+        }
+      ]
+    };
+
+    const bundle = createBundleFromStoredProject(storedProject, settings);
+    expect(bundle.project.slug).toBe("행사-소개-페이지");
+    expect(bundle.screens[0]?.slug).toBe("메인-화면");
+    expect(validateBundle(bundle).valid).toBe(true);
   });
 });

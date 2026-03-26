@@ -2,16 +2,18 @@
 
 import Link from "next/link";
 import { usePathname } from "next/navigation";
-import { LayoutDashboard, Settings, Sparkles, TerminalSquare } from "lucide-react";
+import { CircleHelp, LayoutDashboard, Settings, Sparkles, TerminalSquare } from "lucide-react";
 import { cn } from "@/lib/cn";
-
-const navItems = [
-  { href: "/projects", label: "Projects", icon: LayoutDashboard },
-  { href: "/settings", label: "Settings", icon: Settings }
-];
+import { useCopy } from "@/lib/copy";
 
 export function TopHeader(): React.ReactElement {
   const pathname = usePathname();
+  const copy = useCopy();
+  const navItems = [
+    { href: "/projects", label: copy.common.projects, icon: LayoutDashboard },
+    { href: "/settings", label: copy.common.settings, icon: Settings },
+    { href: "/help", label: copy.common.help, icon: CircleHelp }
+  ];
 
   return (
     <header className="sticky top-0 z-50 border-b border-[rgba(70,72,75,0.12)] bg-[rgba(12,14,17,0.92)] backdrop-blur-xl">
@@ -48,14 +50,14 @@ export function TopHeader(): React.ReactElement {
         <div className="flex items-center gap-2">
           <div className="hidden items-center gap-2 rounded-full border border-[rgba(70,72,75,0.15)] bg-[var(--surface)] px-3 py-2 text-xs text-[var(--text-secondary)] md:flex">
             <Sparkles className="h-4 w-4 text-[var(--color-primary)]" />
-            Local-first visual builder
+            {copy.topHeader.badge}
           </div>
           <Link
             href="/projects"
             className="hidden items-center gap-2 rounded-[10px] px-4 py-2 text-sm font-semibold text-[var(--text-secondary)] transition hover:bg-[var(--surface)] hover:text-[var(--text-primary)] md:inline-flex"
           >
             <TerminalSquare className="h-4 w-4" />
-            Bundle Flow
+            {copy.topHeader.quickLink}
           </Link>
           <div className="flex h-10 w-10 items-center justify-center rounded-full border border-[rgba(70,72,75,0.15)] bg-[var(--surface)] text-[var(--color-primary)]">
             <span className="text-sm font-bold">SA</span>
